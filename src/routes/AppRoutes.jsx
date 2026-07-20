@@ -12,12 +12,14 @@ import CalendarPage from '../pages/Calendar/CalendarPage';
 import Analytics from '../pages/Analytics/Analytics';
 import Settings from '../pages/Settings/Settings';
 import NotFound from '../pages/NotFound';
+import ResetPassword from '../pages/Auth/ResetPassword';
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
 
       <Route path="/" element={<Dashboard />} />
       <Route path="/dashboard" element={<Dashboard />} />

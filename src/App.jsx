@@ -1,12 +1,22 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useLocation } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import AppRoutes from './routes/AppRoutes';
 import './App.css';
 
-function App() {
+const AUTH_PATHS = ['/login', '/register', '/reset-password'];
+
+function Layout() {
+  const location = useLocation();
+  const isAuthPage = AUTH_PATHS.includes(location.pathname);
+
+  if (isAuthPage) {
+    return <AppRoutes />;
+  }
+
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
       <div className="app-layout">
         <Sidebar />
@@ -14,7 +24,17 @@ function App() {
           <AppRoutes />
         </main>
       </div>
-    </BrowserRouter>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
