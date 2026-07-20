@@ -1,0 +1,22 @@
+.navbar {
+  height: 60px;
+  background: var(--color-primary);
+  color: var(--color-bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-lg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.navbar-user {
+  font-size: 0.9rem;
+  cursor: pointer;
+}

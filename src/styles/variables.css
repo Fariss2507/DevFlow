@@ -1,11 +1,11 @@
 :root {
   /* Color Palette — https://colorhunt.co/palette/4b142617433f558467efeabb */
-  --color-primary: #17433F;      /* dark forest green — main brand color */
-  --color-primary-dark: #4B1426; /* deep maroon — accents, danger states */
-  --color-accent: #558467;       /* sage green — secondary actions, success */
-  --color-bg-light: #EFEABB;     /* cream/pale yellow — light backgrounds, highlights */
+  --color-primary: #17433F;
+  --color-primary-dark: #4B1426;
+  --color-accent: #558467;
+  --color-bg-light: #EFEABB;
 
-  --color-bg: #f9fafb;
+  --color-bg: #fdfcf5;
   --color-surface: #ffffff;
   --color-text: #1f2937;
   --color-text-muted: #6b7280;
