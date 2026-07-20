@@ -9,10 +9,12 @@
 .auth-left {
   display: flex;
   flex-direction: column;
-  background: var(--color-surface);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(85, 132, 103, 0.06), transparent 50%),
+    radial-gradient(circle at 0% 100%, rgba(75, 20, 38, 0.04), transparent 50%),
+    var(--color-bg-light);
   padding: var(--spacing-lg) var(--spacing-xl);
 }
-
 .auth-topbar {
   display: flex;
   align-items: center;
