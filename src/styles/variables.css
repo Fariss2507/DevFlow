@@ -1,0 +1,24 @@
+:root {
+  /* Color Palette — https://colorhunt.co/palette/4b142617433f558467efeabb */
+  --color-primary: #17433F;      /* dark forest green — main brand color */
+  --color-primary-dark: #4B1426; /* deep maroon — accents, danger states */
+  --color-accent: #558467;       /* sage green — secondary actions, success */
+  --color-bg-light: #EFEABB;     /* cream/pale yellow — light backgrounds, highlights */
+
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  --font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
