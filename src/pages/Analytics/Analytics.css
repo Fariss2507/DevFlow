@@ -1,0 +1,133 @@
+.spark-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.spark-card {
+  background: var(--color-surface);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 3px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  box-shadow: 0 6px 16px rgba(23, 67, 63, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.spark-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spark-label {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.spark-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+}
+
+.spark-chart {
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.analytics-layout {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: var(--spacing-lg);
+  align-items: start;
+}
+
+.analytics-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.chart-panel,
+.side-panel {
+  background: var(--color-surface);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: 0 6px 16px rgba(23, 67, 63, 0.1);
+}
+
+.chart-panel h2 {
+  font-size: 1.05rem;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--spacing-md);
+}
+
+.side-panel h3 {
+  font-size: 0.95rem;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Heatmap */
+
+.heatmap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.heatmap-row {
+  display: grid;
+  grid-template-columns: 40px repeat(7, 1fr);
+  gap: 4px;
+  align-items: center;
+}
+
+.heatmap-header {
+  margin-bottom: 2px;
+}
+
+.heatmap-day-label {
+  text-align: center;
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.heatmap-hour-label {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  text-align: right;
+  padding-right: 4px;
+}
+
+.heatmap-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1000px) {
+  .analytics-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .spark-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .heatmap-row {
+    grid-template-columns: 32px repeat(7, 1fr);
+  }
+}
