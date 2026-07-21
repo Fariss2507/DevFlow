@@ -7,12 +7,19 @@
 .snippet-card {
   background: var(--color-surface);
   border: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 3px solid var(--color-accent);
   border-radius: var(--radius-md);
   padding: var(--spacing-md);
-  box-shadow: 0 4px 12px rgba(23, 67, 63, 0.08);
+  box-shadow: 0 6px 16px rgba(23, 67, 63, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+}
+
+.snippet-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(23, 67, 63, 0.2);
 }
 
 .snippet-card-top {
