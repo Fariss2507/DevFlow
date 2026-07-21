@@ -9,6 +9,7 @@ const links = [
   { to: '/notes', label: 'Notes' },
   { to: '/snippets', label: 'Snippets' },
   { to: '/apis', label: 'API Collection' },
+  { to: '/github', label: 'GitHub' },
   { to: '/calendar', label: 'Calendar' },
   { to: '/analytics', label: 'Analytics' },
   { to: '/settings', label: 'Settings' },

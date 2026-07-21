@@ -1,0 +1,153 @@
+.repos-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.repo-card {
+  background: var(--color-surface);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 3px solid var(--color-primary-dark);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: 0 6px 16px rgba(23, 67, 63, 0.1);
+}
+
+.repo-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.repo-card-header h3 {
+  color: var(--color-primary-dark);
+  font-size: 1.05rem;
+}
+
+.repo-link {
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  word-break: break-all;
+}
+
+.branch-badge {
+  background: var(--color-bg-light);
+  color: var(--color-primary-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.last-commit {
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.last-commit strong {
+  font-size: 0.75rem;
+  color: var(--color-primary-dark);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.last-commit p {
+  font-size: 0.88rem;
+  color: var(--color-text);
+  font-family: 'Courier New', monospace;
+}
+
+.commit-meta {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+.repo-lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.repo-list-col strong {
+  font-size: 0.8rem;
+  color: var(--color-primary-dark);
+  display: block;
+  margin-bottom: var(--spacing-sm);
+}
+
+.repo-list-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.repo-list-col li {
+  font-size: 0.82rem;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pill-status {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: white;
+  white-space: nowrap;
+}
+
+.pill-status.open {
+  background: var(--color-accent);
+}
+
+.pill-status.merged {
+  background: var(--color-primary);
+}
+
+.pill-status.closed {
+  background: #9ca3af;
+}
+
+.empty-mini {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.repo-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.form-note {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-md);
+  font-style: italic;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .repo-lists {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .repo-card-header {
+    flex-direction: column;
+  }
+
+  .branch-badge {
+    align-self: flex-start;
+  }
+}
