@@ -3,10 +3,13 @@ import './Analytics.css';
 export default function ActivityHeatmap({ data }) {
   const maxVal = Math.max(...data.values.flat());
 
-  const getColor = (val) => {
-    if (val === 0) return 'var(--color-bg)';
-    const opacity = 0.2 + (val / maxVal) * 0.8;
-    return `rgba(23, 67, 63, ${opacity})`;
+  const getLevel = (val) => {
+    if (val === 0) return 0;
+    const ratio = val / maxVal;
+    if (ratio <= 0.25) return 1;
+    if (ratio <= 0.5) return 2;
+    if (ratio <= 0.75) return 3;
+    return 4;
   };
 
   return (
@@ -24,9 +27,8 @@ export default function ActivityHeatmap({ data }) {
             <span className="heatmap-hour-label">{data.hours[rowIdx]}</span>
             {row.map((val, colIdx) => (
               <span
-                className="heatmap-cell"
+                className={`heatmap-cell heat-level-${getLevel(val)}`}
                 key={colIdx}
-                style={{ background: getColor(val) }}
                 title={`${val} sessions`}
               />
             ))}

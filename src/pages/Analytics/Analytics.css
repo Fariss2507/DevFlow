@@ -113,6 +113,31 @@
   border-radius: 3px;
   border: 1px solid var(--color-border);
 }
+.heatmap-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+}
+
+.heat-level-0 {
+  background: var(--color-bg);
+}
+
+.heat-level-1 {
+  background: color-mix(in srgb, var(--color-accent) 25%, var(--color-surface));
+}
+
+.heat-level-2 {
+  background: color-mix(in srgb, var(--color-accent) 50%, var(--color-surface));
+}
+
+.heat-level-3 {
+  background: color-mix(in srgb, var(--color-accent) 75%, var(--color-surface));
+}
+
+.heat-level-4 {
+  background: var(--color-accent);
+}
 
 /* ---------- Responsive ---------- */
 
