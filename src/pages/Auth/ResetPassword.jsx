@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import PerspectiveGrid from '../../components/PerspectiveGrid';
 import './Auth.css';
 
 const fieldVariants = {
@@ -14,7 +15,9 @@ export default function ResetPassword() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!email) return;
+
     setSubmitted(true);
   };
 
@@ -28,6 +31,7 @@ export default function ResetPassword() {
       >
         <div className="auth-topbar">
           <div className="auth-logo">DevFlow</div>
+
           <Link to="/login" className="auth-topbar-link">
             Remembered it? <span>Log in</span>
           </Link>
@@ -41,12 +45,23 @@ export default function ResetPassword() {
             animate="visible"
             variants={{
               hidden: {},
-              visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
+              visible: {
+                transition: {
+                  staggerChildren: 0.08,
+                  delayChildren: 0.15,
+                },
+              },
             }}
           >
-            <motion.h1 variants={fieldVariants}>Reset password</motion.h1>
-            <motion.p className="auth-subtitle" variants={fieldVariants}>
-              Enter your email and we'll send you reset instructions
+            <motion.h1 variants={fieldVariants}>
+              Reset Password
+            </motion.h1>
+
+            <motion.p
+              className="auth-subtitle"
+              variants={fieldVariants}
+            >
+              Enter your email and we'll send you reset instructions.
             </motion.p>
 
             {submitted ? (
@@ -55,19 +70,22 @@ export default function ResetPassword() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
               >
-                If an account exists for {email}, a reset link has been sent.
+                If an account exists for <b>{email}</b>, a reset link has
+                been sent.
               </motion.div>
             ) : (
               <>
                 <motion.div variants={fieldVariants}>
                   <label>Email</label>
+
                   <input
                     type="email"
+                    placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
                   />
                 </motion.div>
+
                 <motion.button
                   type="submit"
                   className="auth-btn"
@@ -87,19 +105,9 @@ export default function ResetPassword() {
         className="auth-right"
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <div className="auth-blob auth-blob-1" />
-        <div className="auth-blob auth-blob-2" />
-        <motion.div
-          className="auth-right-content"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <h2>We've got you covered</h2>
-          <p>Get back into your workspace in just a couple of clicks.</p>
-        </motion.div>
+        <PerspectiveGrid />
       </motion.div>
     </div>
   );
