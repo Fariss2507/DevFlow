@@ -1,0 +1,139 @@
+.notif-wrapper {
+  position: relative;
+}
+
+.notif-bell {
+  background: none;
+  font-size: 1.2rem;
+  position: relative;
+  padding: 6px;
+  color: var(--color-bg-light);
+}
+
+.notif-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #dc2626;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.notif-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+}
+
+.notif-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 340px;
+  max-height: 420px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.notif-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.notif-panel-header h3 {
+  font-size: 0.95rem;
+  color: var(--color-primary-dark);
+}
+
+.notif-header-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.notif-header-actions button {
+  background: none;
+  font-size: 0.7rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.notif-list {
+  overflow-y: auto;
+  padding: var(--spacing-sm);
+}
+
+.notif-empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  padding: var(--spacing-xl);
+}
+
+.notif-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  position: relative;
+}
+
+.notif-item:hover {
+  background: var(--color-bg);
+}
+
+.notif-item.unread {
+  background: var(--color-bg-light);
+}
+
+.notif-icon {
+  font-size: 1.1rem;
+}
+
+.notif-content {
+  flex: 1;
+}
+
+.notif-content p {
+  font-size: 0.82rem;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.notif-time {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+.notif-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  margin-top: 4px;
+}
+
+@media (max-width: 480px) {
+  .notif-panel {
+    width: 90vw;
+    right: -60px;
+  }
+}

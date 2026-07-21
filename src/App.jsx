@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -11,6 +12,7 @@ const AUTH_PATHS = ['/login', '/register', '/reset-password'];
 function Layout() {
   const location = useLocation();
   const isAuthPage = AUTH_PATHS.includes(location.pathname);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (isAuthPage) {
     return <AppRoutes />;
@@ -18,9 +20,9 @@ function Layout() {
 
   return (
     <>
-      <Navbar />
+      <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
       <div className="app-layout">
-        <Sidebar />
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <main className="main-content">
           <AppRoutes />
         </main>
