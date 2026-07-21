@@ -15,6 +15,7 @@ import NotFound from '../pages/NotFound';
 import ResetPassword from '../pages/Auth/ResetPassword';
 import GitHubPage from '../pages/GitHub/GitHubPage';
 import TimeTracker from '../pages/TimeTracker/TimeTracker';
+// import BentoDemo from '../pages/BentoDemo/BentoDemo';
 
 export default function AppRoutes() {
   return (
@@ -36,6 +37,7 @@ export default function AppRoutes() {
       <Route path="/calendar" element={<CalendarPage />} />
       <Route path="/analytics" element={<Analytics />} />
       <Route path="/settings" element={<Settings />} />
+      {/* <Route path="/bento-demo" element={<BentoDemo />} /> */}
 
       <Route path="*" element={<NotFound />} />
     </Routes>

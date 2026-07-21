@@ -14,6 +14,7 @@ const links = [
   { to: '/calendar', label: 'Calendar' },
   { to: '/analytics', label: 'Analytics' },
   { to: '/settings', label: 'Settings' },
+ 
 ];
 
 export default function Sidebar() {

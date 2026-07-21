@@ -1,49 +1,118 @@
-import StatCard from '../../components/StatCard';
-import { stats, recentNotes, weeklyProductivity } from '../../data/dashboardData';
-import './Dashboard.css';
+import AuroraHero from "../../components/AuroraHero";
+import StatCard from "../../components/StatCard";
+
+import {
+  stats,
+  recentNotes,
+  weeklyProductivity,
+} from "../../data/dashboardData";
+
+import "./Dashboard.css";
 
 export default function Dashboard() {
-  const maxHours = Math.max(...weeklyProductivity.map((d) => d.hours), 1);
+  const maxHours = Math.max(
+    ...weeklyProductivity.map((d) => d.hours),
+    1
+  );
 
   return (
-    <div className="page">
-      <h1>Dashboard</h1>
+    <div className="page dashboard-page">
 
-      <div className="stats-grid">
+      {/* ================= HERO ================= */}
+
+      <AuroraHero />
+
+
+      <section className="stats-grid">
         {stats.map((stat) => (
-          <StatCard key={stat.id} icon={stat.icon} label={stat.label} value={stat.value} />
+          <StatCard
+            key={stat.id}
+            icon={stat.icon}
+            label={stat.label}
+            value={stat.value}
+          />
         ))}
-      </div>
+      </section>
 
-      <div className="dashboard-lower">
+     
+
+      <section className="dashboard-lower">
+
+      
+
         <div className="dashboard-panel">
-          <h2>Weekly Productivity</h2>
+
+          <div className="panel-header">
+            <h2>Weekly Productivity</h2>
+            <span>This Week</span>
+          </div>
+
           <div className="bar-chart">
-            {weeklyProductivity.map((d) => (
-              <div className="bar-column" key={d.day}>
+
+            {weeklyProductivity.map((day) => (
+              <div
+                className="bar-column"
+                key={day.day}
+              >
+
                 <div
                   className="bar"
-                  style={{ height: `${(d.hours / maxHours) * 100}%` }}
-                  title={`${d.hours}h`}
-                />
-                <span className="bar-label">{d.day}</span>
+                  style={{
+                    height: `${
+                      (day.hours / maxHours) * 100
+                    }%`,
+                  }}
+                  title={`${day.hours} Hours`}
+                ></div>
+
+                <span className="bar-label">
+                  {day.day}
+                </span>
+
               </div>
             ))}
+
           </div>
+
         </div>
 
+        {/* Recent Notes */}
+
         <div className="dashboard-panel">
-          <h2>Recent Notes</h2>
+
+          <div className="panel-header">
+            <h2>Recent Notes</h2>
+            <span>Latest</span>
+          </div>
+
           <ul className="recent-list">
+
             {recentNotes.map((note) => (
+
               <li key={note.id}>
-                <span className="recent-title">{note.title}</span>
-                <span className="recent-date">{note.date}</span>
+
+                <div className="recent-left">
+
+                  <span className="recent-title">
+                    {note.title}
+                  </span>
+
+                </div>
+
+                <span className="recent-date">
+                  {note.date}
+                </span>
+
               </li>
+
             ))}
+
           </ul>
+
         </div>
-      </div>
+
+      </section>
+
     </div>
   );
 }
