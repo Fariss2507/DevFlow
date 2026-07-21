@@ -14,6 +14,7 @@ import Settings from '../pages/Settings/Settings';
 import NotFound from '../pages/NotFound';
 import ResetPassword from '../pages/Auth/ResetPassword';
 import GitHubPage from '../pages/GitHub/GitHubPage';
+import TimeTracker from '../pages/TimeTracker/TimeTracker';
 
 export default function AppRoutes() {
   return (
@@ -31,6 +32,7 @@ export default function AppRoutes() {
       <Route path="/snippets" element={<Snippets />} />
       <Route path="/apis" element={<Apis />} />
       <Route path="/github" element={<GitHubPage />} />
+      <Route path="/time-tracker" element={<TimeTracker />} />
       <Route path="/calendar" element={<CalendarPage />} />
       <Route path="/analytics" element={<Analytics />} />
       <Route path="/settings" element={<Settings />} />
