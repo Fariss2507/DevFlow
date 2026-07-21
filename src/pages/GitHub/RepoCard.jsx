@@ -2,7 +2,7 @@ import './GitHub.css';
 
 export default function RepoCard({ repo, onEdit, onDelete }) {
   return (
-    <div className="repo-card">
+    <div className="repo-card premium-card">
       <div className="repo-card-header">
         <div>
           <h3>{repo.projectName}</h3>

@@ -13,7 +13,7 @@ export default function ApiCard({ api, onEdit, onDelete }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="api-card">
+    <div className="api-card premium-card">
       <div className="api-card-header" onClick={() => setExpanded(!expanded)}>
         <div className="api-card-title">
           <span className="method-badge" style={{ background: methodColors[api.method] }}>

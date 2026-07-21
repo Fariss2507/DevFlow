@@ -3,7 +3,7 @@ import './Analytics.css';
 
 export default function StatSparkCard({ label, value, trend }) {
   return (
-    <div className="spark-card">
+    <div className="spark-card premium-card">
       <div className="spark-card-info">
         <span className="spark-label">{label}</span>
         <span className="spark-value">{value}</span>

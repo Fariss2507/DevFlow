@@ -13,7 +13,7 @@ export default function SnippetCard({ snippet, onEdit, onDelete, onToggleFavorit
   };
 
   return (
-    <div className="snippet-card">
+    <div className="snippet-card premium-card">
       <div className="snippet-card-top">
         <div>
           <h3>{snippet.title}</h3>

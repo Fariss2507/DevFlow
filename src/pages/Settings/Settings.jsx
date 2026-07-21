@@ -57,8 +57,7 @@ export default function Settings() {
       {savedMsg && <div className="settings-toast">{savedMsg}</div>}
 
       <div className="settings-grid">
-        {/* Profile */}
-        <div className="settings-card">
+        <div className="settings-card premium-card">
           <h2>Profile</h2>
           <form onSubmit={handleProfileSave}>
             <label>Full Name</label>
@@ -78,8 +77,7 @@ export default function Settings() {
           </form>
         </div>
 
-        {/* Theme */}
-        <div className="settings-card">
+        <div className="settings-card premium-card">
           <h2>Appearance</h2>
           <div className="theme-toggle-row">
             <div>
@@ -98,8 +96,7 @@ export default function Settings() {
           </div>
         </div>
 
-        {/* Password */}
-        <div className="settings-card">
+        <div className="settings-card premium-card">
           <h2>Change Password</h2>
           <form onSubmit={handlePasswordSave}>
             <label>Current Password</label>
@@ -127,8 +124,7 @@ export default function Settings() {
           </form>
         </div>
 
-        {/* Notifications */}
-        <div className="settings-card">
+        <div className="settings-card premium-card">
           <h2>Notifications</h2>
           {Object.entries({
             deadlines: 'Deadline reminders',
@@ -149,8 +145,7 @@ export default function Settings() {
           ))}
         </div>
 
-        {/* Language */}
-        <div className="settings-card">
+        <div className="settings-card premium-card">
           <h2>Language</h2>
           <label>Preferred Language</label>
           <select value={language} onChange={(e) => setLanguage(e.target.value)}>
@@ -161,8 +156,7 @@ export default function Settings() {
           </select>
         </div>
 
-      
-        <div className="settings-card logout-card">
+        <div className="settings-card premium-card logout-card">
           <h2>Account</h2>
           <p className="settings-sublabel">Log out of your DevFlow account on this device.</p>
           <button className="btn-danger btn-logout" onClick={handleLogout}>

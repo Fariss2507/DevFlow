@@ -16,7 +16,7 @@ const statusColors = {
 
 export default function BugCard({ bug, onEdit, onDelete }) {
   return (
-    <div className="bug-card">
+    <div className="bug-card premium-card">
       <div className="bug-card-top">
         <div className="bug-badges">
           <span className="severity-badge" style={{ background: severityColors[bug.severity] }}>

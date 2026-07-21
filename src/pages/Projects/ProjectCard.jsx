@@ -9,7 +9,7 @@ const statusColors = {
 
 export default function ProjectCard({ project, onEdit, onDelete }) {
   return (
-    <div className="project-card">
+    <div className="project-card premium-card">
       <div className="project-card-header">
         <h3>{project.name}</h3>
         <span

@@ -10,7 +10,7 @@ const categoryColors = {
 
 export default function NoteCard({ note, onEdit, onDelete }) {
   return (
-    <div className="note-card" onClick={() => onEdit(note)}>
+    <div className="note-card premium-card" onClick={() => onEdit(note)}>
       <div className="note-card-top">
         <span
           className="category-badge"

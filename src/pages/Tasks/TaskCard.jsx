@@ -9,7 +9,7 @@ const priorityColors = {
 export default function TaskCard({ task, onEdit, onDelete, onDragStart }) {
   return (
     <div
-      className="task-card"
+      className="task-card premium-card"
       draggable
       onDragStart={(e) => onDragStart(e, task.id)}
       onClick={() => onEdit(task)}
