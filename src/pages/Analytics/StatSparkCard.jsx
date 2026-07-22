@@ -1,12 +1,24 @@
+import { motion } from 'framer-motion';
 import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 import './Analytics.css';
 
 export default function StatSparkCard({ label, value, trend }) {
   return (
-    <div className="spark-card premium-card">
+    <motion.div
+      className="spark-card premium-card"
+      whileHover={{ y: -4 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    >
       <div className="spark-card-info">
         <span className="spark-label">{label}</span>
-        <span className="spark-value">{value}</span>
+        <motion.span
+          className="spark-value"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          {value}
+        </motion.span>
       </div>
       <div className="spark-chart">
         <ResponsiveContainer width="100%" height={40}>
@@ -23,10 +35,12 @@ export default function StatSparkCard({ label, value, trend }) {
               stroke="var(--color-primary)"
               strokeWidth={2}
               fill={`url(#spark-${label})`}
+              isAnimationActive={true}
+              animationDuration={1000}
             />
           </AreaChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </motion.div>
   );
 }

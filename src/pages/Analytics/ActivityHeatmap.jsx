@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import './Analytics.css';
 
 export default function ActivityHeatmap({ data }) {
@@ -26,10 +27,14 @@ export default function ActivityHeatmap({ data }) {
           <div className="heatmap-row" key={rowIdx}>
             <span className="heatmap-hour-label">{data.hours[rowIdx]}</span>
             {row.map((val, colIdx) => (
-              <span
+              <motion.span
                 className={`heatmap-cell heat-level-${getLevel(val)}`}
                 key={colIdx}
                 title={`${val} sessions`}
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2, delay: (rowIdx * row.length + colIdx) * 0.01 }}
+                whileHover={{ scale: 1.15 }}
               />
             ))}
           </div>
