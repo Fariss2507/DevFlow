@@ -1,13 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProjectCard from './ProjectCard';
 import ProjectForm from './ProjectForm';
-import { initialProjects } from '../../data/projectsData';
+import api from '../../services/api';
 import './Projects.css';
 
 export default function Projects() {
-  const [projects, setProjects] = useState(initialProjects);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      const res = await api.get('/projects');
+      const mapped = res.data.map((p) => ({ ...p, id: p._id }));
+      setProjects(mapped);
+    } catch (err) {
+      console.error('Failed to fetch projects', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const openNewForm = () => {
     setEditingProject(null);
@@ -19,20 +36,41 @@ export default function Projects() {
     setShowForm(true);
   };
 
-  const handleSave = (project) => {
-    if (editingProject) {
-      setProjects(projects.map((p) => (p.id === project.id ? project : p)));
-    } else {
-      setProjects([...projects, project]);
+  const handleSave = async (project) => {
+    try {
+      if (editingProject) {
+        const res = await api.put(`/projects/${editingProject.id}`, project);
+        const updated = { ...res.data, id: res.data._id };
+        setProjects(projects.map((p) => (p.id === updated.id ? updated : p)));
+      } else {
+        const res = await api.post('/projects', project);
+        const created = { ...res.data, id: res.data._id };
+        setProjects([...projects, created]);
+      }
+      setShowForm(false);
+    } catch (err) {
+      console.error('Failed to save project', err);
     }
-    setShowForm(false);
   };
 
-  const handleDelete = (id) => {
-    if (confirm('Delete this project?')) {
+  const handleDelete = async (id) => {
+    if (!confirm('Delete this project?')) return;
+    try {
+      await api.delete(`/projects/${id}`);
       setProjects(projects.filter((p) => p.id !== id));
+    } catch (err) {
+      console.error('Failed to delete project', err);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="page">
+        <h1>Projects</h1>
+        <p className="empty-state">Loading projects...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="page">
