@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { eventTypes } from '../../data/calendarData';
+import { eventTypes } from '@/data/calendarData';
+
 import './Calendar.css';
 
 export default function EventForm({ defaultDate, onSave, onClose }) {

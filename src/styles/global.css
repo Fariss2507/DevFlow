@@ -122,3 +122,23 @@ ul {
     transparent 50%
   );
 }
+
+/* Fix React Syntax Highlighter padding and background color conflicts with Tailwind resets */
+.snippet-code-wrap pre {
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+.snippet-code-wrap code {
+  background: transparent !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.snippet-code-wrap code span {
+  background-color: transparent !important;
+}

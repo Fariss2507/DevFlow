@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import AuroraHero from "../../components/AuroraHero";
-import StatCard from "../../components/StatCard";
-import api from "../../services/api";
+import { AuroraHero } from "@/components/features";
+import { StatCard, AgentBentoGrid } from "@/components/common";
+import api from "@/services/api";
+
+
 
 import "./Dashboard.css";
 
@@ -60,6 +62,13 @@ export default function Dashboard() {
           />
         ))}
       </section>
+
+      {/* ================= BENTO GRID ================= */}
+      <div className="my-8">
+        <h2 className="text-xl font-bold text-foreground text-left px-4 mb-4 tracking-tight">AI Agent Workspace</h2>
+        <AgentBentoGrid />
+      </div>
+
 
      
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { noteCategories } from '../../data/notesData';
+import { noteCategories } from '@/data/notesData';
+
 import './Notes.css';
 
 const emptyForm = {

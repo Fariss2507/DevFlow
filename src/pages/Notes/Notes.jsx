@@ -1,8 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
 import NoteCard from './NoteCard';
 import NoteForm from './NoteForm';
-import { noteCategories } from '../../data/notesData';
-import api from '../../services/api';
+import { noteCategories } from '@/data/notesData';
+import { noteService } from '@/services';
+
 import './Notes.css';
 
 export default function Notes() {
@@ -19,7 +20,7 @@ export default function Notes() {
 
   const fetchNotes = async () => {
     try {
-      const res = await api.get('/notes');
+      const res = await noteService.getAll();
 
       const mapped = res.data.map((note) => ({
         ...note,
@@ -47,7 +48,7 @@ export default function Notes() {
   const handleSave = async (note) => {
     try {
       if (editingNote) {
-        const res = await api.put(`/notes/${editingNote.id}`, note);
+        const res = await noteService.update(editingNote.id, note);
 
         const updated = {
           ...res.data,
@@ -60,7 +61,7 @@ export default function Notes() {
           )
         );
       } else {
-        const res = await api.post('/notes', note);
+        const res = await noteService.create(note);
 
         const created = {
           ...res.data,
@@ -80,7 +81,7 @@ export default function Notes() {
     if (!confirm('Delete this note?')) return;
 
     try {
-      await api.delete(`/notes/${id}`);
+      await noteService.delete(id);
 
       setNotes(
         notes.filter((n) => n.id !== id)

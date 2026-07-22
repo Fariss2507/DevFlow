@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import BugCard from './BugCard';
 import BugForm from './BugForm';
-import api from '../../services/api';
+import { bugService } from '@/services';
+
 import './Bugs.css';
 
 export default function Bugs() {
@@ -16,7 +17,7 @@ export default function Bugs() {
 
   const fetchBugs = async () => {
     try {
-      const res = await api.get('/bugs');
+      const res = await bugService.getAll();
 
       const mapped = res.data.map((bug) => ({
         ...bug,
@@ -44,7 +45,7 @@ export default function Bugs() {
   const handleSave = async (bug) => {
     try {
       if (editingBug) {
-        const res = await api.put(`/bugs/${editingBug.id}`, bug);
+        const res = await bugService.update(editingBug.id, bug);
 
         const updated = {
           ...res.data,
@@ -57,7 +58,7 @@ export default function Bugs() {
           )
         );
       } else {
-        const res = await api.post('/bugs', bug);
+        const res = await bugService.create(bug);
 
         const created = {
           ...res.data,
@@ -77,7 +78,7 @@ export default function Bugs() {
     if (!confirm('Delete this bug report?')) return;
 
     try {
-      await api.delete(`/bugs/${id}`);
+      await bugService.delete(id);
 
       setBugs(
         bugs.filter((b) => b.id !== id)

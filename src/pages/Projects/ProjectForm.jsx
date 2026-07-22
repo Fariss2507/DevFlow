@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { statusOptions } from '../../data/projectsData';
+import { statusOptions } from '@/data/projectsData';
+
 import './Projects.css';
 
 const emptyForm = {

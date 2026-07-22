@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Timer from './Timer';
 import LogList from './LogList';
-import api from '../../services/api';
+import api from '@/services/api';
+
 import './TimeTracker.css';
 
 export default function TimeTracker() {

@@ -4,8 +4,9 @@ import StatSparkCard from './StatSparkCard';
 import ProgressChart from './ProgressChart';
 import BugsBarChart from './BugsBarChart';
 import ActivityHeatmap from './ActivityHeatmap';
-import api from '../../services/api';
-import { activityHeatmap } from '../../data/analyticsData';
+import api from '@/services/api';
+import { activityHeatmap } from '@/data/analyticsData';
+
 import './Analytics.css';
 
 export default function Analytics() {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { languageOptions } from '../../data/snippetsData';
+import { languageOptions } from '@/data/snippetsData';
+
 import './Snippets.css';
 
 const emptyForm = {

@@ -33,29 +33,23 @@
 
 .dashboard-panel {
   position: relative;
-
   background: var(--color-surface);
-
   border: 1px solid var(--color-border);
-
-  border-radius: 18px;
-
+  border-radius: 20px;
   padding: 24px;
-
   overflow: hidden;
-
-  transition: .35s;
-
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow:
-      0 10px 25px rgba(0,0,0,.05);
+    0 0 0 1px rgba(0,0,0,0.08),
+    0 2px 4px rgba(0,0,0,0.04);
 }
 
 .dashboard-panel:hover {
-
-  transform: translateY(-6px);
-
+  transform: translateY(-4px);
   box-shadow:
-      0 20px 45px rgba(0,0,0,.12);
+    0 0 0 1px rgba(0,0,0,0.1),
+    0 8px 16px rgba(0,0,0,0.06);
 }
 
 /* ===========================================
@@ -229,21 +223,19 @@
 =========================================== */
 
 [data-theme="dark"] .dashboard-panel{
-
-    background:rgba(35,45,66,.92);
-
-    backdrop-filter:blur(14px);
-
-    border:1px solid rgba(255,255,255,.06);
-
+    background: var(--color-surface);
+    border: 1px solid rgba(255,255,255,0.05);
     box-shadow:
-    0 10px 30px rgba(0,0,0,.35);
+      inset 0 1px 0 0 rgba(255,255,255,0.05),
+      0 0 0 1px rgba(255,255,255,0.05),
+      0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="dark"] .dashboard-panel:hover{
-
     box-shadow:
-    0 20px 45px rgba(0,0,0,.5);
+      inset 0 1px 0 0 rgba(255,255,255,0.08),
+      0 0 0 1px rgba(255,255,255,0.08),
+      0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .panel-header span{

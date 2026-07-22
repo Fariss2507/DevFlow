@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { severityOptions, bugStatusOptions } from '../../data/bugsData';
+import { severityOptions, bugStatusOptions } from '@/data/bugsData';
+
 import './Bugs.css';
 
 const emptyForm = {

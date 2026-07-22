@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import PerspectiveGrid from '../../components/PerspectiveGrid';
+import { PerspectiveGrid } from '@/components/features';
+
 import './Auth.css';
 
 const fieldVariants = {

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { typeColors } from '../../data/calendarData';
+import { typeColors } from '@/data/calendarData';
+
 import './Calendar.css';
 
 export default function CalendarGrid({ currentDate, events, onDayClick, selectedDate }) {

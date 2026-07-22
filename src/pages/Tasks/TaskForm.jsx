@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { statusColumns, priorityOptions } from '../../data/tasksData';
+import { statusColumns, priorityOptions } from '@/data/tasksData';
+
 import './Tasks.css';
 
 const emptyForm = {

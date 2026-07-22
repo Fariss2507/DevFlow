@@ -1,9 +1,10 @@
-import { initialProjects } from '../../data/projectsData';
-import { initialTasks } from '../../data/tasksData';
-import { initialBugs } from '../../data/bugsData';
-import { initialNotes } from '../../data/notesData';
-import { initialSnippets } from '../../data/snippetsData';
-import { initialApis } from '../../data/apisData';
+import { initialProjects } from '@/data/projectsData';
+import { initialTasks } from '@/data/tasksData';
+import { initialBugs } from '@/data/bugsData';
+import { initialNotes } from '@/data/notesData';
+import { initialSnippets } from '@/data/snippetsData';
+import { initialApis } from '@/data/apisData';
+
 
 export function searchAll(query) {
   const q = query.toLowerCase().trim();

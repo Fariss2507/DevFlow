@@ -2,7 +2,8 @@ import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SnippetCard from './SnippetCard';
 import SnippetForm from './SnippetForm';
-import api from '../../services/api';
+import { snippetService } from '@/services';
+
 import './Snippets.css';
 
 const pageVariants = {
@@ -45,7 +46,7 @@ export default function Snippets() {
 
   const fetchSnippets = async () => {
     try {
-      const res = await api.get('/snippets');
+      const res = await snippetService.getAll();
 
       const mapped = res.data.map((snippet) => ({
         ...snippet,
@@ -72,10 +73,7 @@ export default function Snippets() {
     const handleSave = async (snippet) => {
     try {
       if (editingSnippet) {
-        const res = await api.put(
-          `/snippets/${editingSnippet.id}`,
-          snippet
-        );
+        const res = await snippetService.update(editingSnippet.id, snippet);
 
         const updated = {
           ...res.data,
@@ -88,7 +86,7 @@ export default function Snippets() {
           )
         );
       } else {
-        const res = await api.post('/snippets', snippet);
+        const res = await snippetService.create(snippet);
 
         const created = {
           ...res.data,
@@ -109,7 +107,7 @@ export default function Snippets() {
     if (!confirm('Delete this snippet?')) return;
 
     try {
-      await api.delete(`/snippets/${id}`);
+      await snippetService.delete(id);
 
       setSnippets(
         snippets.filter((s) => s.id !== id)
@@ -125,7 +123,7 @@ export default function Snippets() {
     if (!snippet) return;
 
     try {
-      const res = await api.put(`/snippets/${id}`, {
+      const res = await snippetService.update(id, {
         ...snippet,
         favorite: !snippet.favorite,
       });
@@ -261,13 +259,6 @@ export default function Snippets() {
             <motion.div
               key={snippet.id}
               variants={itemVariants}
-              whileHover={{
-                y: -6,
-                scale: 1.02,
-              }}
-              transition={{
-                duration: 0.2,
-              }}
             >
 
               <SnippetCard

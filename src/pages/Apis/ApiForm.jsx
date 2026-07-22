@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { methodOptions } from '../../data/apisData';
+import { methodOptions } from '@/data/apisData';
+
 import './Apis.css';
 
 const emptyForm = {

@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RepoCard from './RepoCard';
 import RepoForm from './RepoForm';
-import api from '../../services/api';
+import api from '@/services/api';
+
 import './GitHub.css';
 
 export default function GitHubPage() {

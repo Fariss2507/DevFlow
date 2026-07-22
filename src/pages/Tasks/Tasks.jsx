@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import TaskCard from './TaskCard';
 import TaskForm from './TaskForm';
-import { statusColumns } from '../../data/tasksData';
-import api from '../../services/api';
+import { statusColumns } from '@/data/tasksData';
+import api from '@/services/api';
 import './Tasks.css';
-import AuroraBackground from '../../components/AuroraBackground';
+import { AuroraBackground } from '@/components/features';
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);

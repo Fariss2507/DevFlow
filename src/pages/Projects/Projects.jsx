@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import ProjectCard from './ProjectCard';
 import ProjectForm from './ProjectForm';
-import api from '../../services/api';
+import api from '@/services/api';
+
 import './Projects.css';
 
 export default function Projects() {

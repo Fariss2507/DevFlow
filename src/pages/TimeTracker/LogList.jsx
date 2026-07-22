@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { formatDuration } from '../../data/timeTrackerData';
+import { formatDuration } from '@/data/timeTrackerData';
+
 import './TimeTracker.css';
 
 export default function LogList({ logs, onDelete }) {

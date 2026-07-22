@@ -2,8 +2,9 @@ import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CalendarGrid from './CalendarGrid';
 import EventForm from './EventForm';
-import api from '../../services/api';
-import { typeColors } from '../../data/calendarData';
+import api from '@/services/api';
+import { typeColors } from '@/data/calendarData';
+
 import './Calendar.css';
 
 export default function CalendarPage() {

@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ApiCard from './ApiCard';
 import ApiForm from './ApiForm';
-import api from '../../services/api';
+import api from '@/services/api';
+
 import './Apis.css';
 
 const pageVariants = {

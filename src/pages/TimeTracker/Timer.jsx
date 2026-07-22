@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTimer } from '../../context/TimerContext';
-import { formatDuration } from '../../data/timeTrackerData';
+import { useTimer } from '@/context/TimerContext';
+import { formatDuration } from '@/data/timeTrackerData';
+
 import './TimeTracker.css';
 
 export default function Timer({ onLogSaved }) {

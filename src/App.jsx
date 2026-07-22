@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { BrowserRouter, useLocation } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
-import { TimerProvider } from './context/TimerContext';
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
-import AppRoutes from './routes/AppRoutes';
+import { AuthProvider } from '@/context/AuthContext';
+import { ThemeProvider } from '@/context/ThemeContext';
+import { TimerProvider } from '@/context/TimerContext';
+import { Navbar, Sidebar } from '@/components/layout';
+import AppRoutes from '@/routes/AppRoutes';
+import '@/styles/index.css';
 import './App.css';
 
 const AUTH_PATHS = ['/login', '/register', '/reset-password'];
