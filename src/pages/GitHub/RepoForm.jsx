@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import './GitHub.css';
 
 const emptyForm = {
@@ -19,9 +20,9 @@ export default function RepoForm({ existingRepo, onSave, onClose }) {
         projectName: existingRepo.projectName,
         repoUrl: existingRepo.repoUrl,
         branch: existingRepo.branch,
-        commitMessage: existingRepo.lastCommit.message,
-        commitAuthor: existingRepo.lastCommit.author,
-        commitDate: existingRepo.lastCommit.date,
+        commitMessage: existingRepo.lastCommit?.message || '',
+        commitAuthor: existingRepo.lastCommit?.author || '',
+        commitDate: existingRepo.lastCommit?.date || '',
       });
     } else {
       setForm(emptyForm);
@@ -37,7 +38,6 @@ export default function RepoForm({ existingRepo, onSave, onClose }) {
     if (!form.projectName.trim() || !form.repoUrl.trim()) return;
 
     onSave({
-      id: existingRepo ? existingRepo.id : Date.now(),
       projectName: form.projectName,
       repoUrl: form.repoUrl,
       branch: form.branch,
@@ -52,8 +52,21 @@ export default function RepoForm({ existingRepo, onSave, onClose }) {
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+    <motion.div
+      className="modal-overlay"
+      onClick={onClose}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="modal-card"
+        onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        transition={{ duration: 0.2 }}
+      >
         <h2>{existingRepo ? 'Edit Repository' : 'Link New Repository'}</h2>
 
         <form onSubmit={handleSubmit}>
@@ -81,15 +94,30 @@ export default function RepoForm({ existingRepo, onSave, onClose }) {
           <input type="date" name="commitDate" value={form.commitDate} onChange={handleChange} />
 
           <p className="form-note">
-            Pull requests & issues will sync automatically once GitHub API is connected (backend phase).
+            Pull requests & issues will sync automatically once GitHub API is connected.
           </p>
 
           <div className="modal-actions">
-            <button type="button" className="btn-secondary" onClick={onClose}>Cancel</button>
-            <button type="submit" className="btn-primary">{existingRepo ? 'Save Changes' : 'Link Repository'}</button>
+            <motion.button
+              type="button"
+              className="btn-secondary"
+              onClick={onClose}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Cancel
+            </motion.button>
+            <motion.button
+              type="submit"
+              className="btn-primary"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              {existingRepo ? 'Save Changes' : 'Link Repository'}
+            </motion.button>
           </div>
         </form>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

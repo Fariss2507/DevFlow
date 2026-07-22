@@ -30,6 +30,9 @@ app.use('/api/notes', noteRoutes);
 const snippetRoutes = require('./routes/snippets');
 app.use('/api/snippets', snippetRoutes);
 
+const repoRoutes = require('./routes/repos');
+app.use('/api/repos', repoRoutes);
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('MongoDB connected successfully');
