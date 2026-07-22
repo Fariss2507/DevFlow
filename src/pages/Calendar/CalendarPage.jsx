@@ -1,15 +1,33 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CalendarGrid from './CalendarGrid';
 import EventForm from './EventForm';
-import { initialEvents, typeColors } from '../../data/calendarData';
+import api from '../../services/api';
+import { typeColors } from '../../data/calendarData';
 import './Calendar.css';
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [events, setEvents] = useState(initialEvents);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(null);
   const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const res = await api.get('/events');
+      const mapped = res.data.map((e) => ({ ...e, id: e._id }));
+      setEvents(mapped);
+    } catch (err) {
+      console.error('Failed to fetch events', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const monthLabel = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
@@ -25,13 +43,24 @@ export default function CalendarPage() {
     setSelectedDate(dateStr);
   };
 
-  const handleSaveEvent = (event) => {
-    setEvents([...events, event]);
-    setShowForm(false);
+  const handleSaveEvent = async (event) => {
+    try {
+      const res = await api.post('/events', event);
+      const created = { ...res.data, id: res.data._id };
+      setEvents([...events, created]);
+      setShowForm(false);
+    } catch (err) {
+      console.error('Failed to save event', err);
+    }
   };
 
-  const handleDeleteEvent = (id) => {
-    setEvents(events.filter((e) => e.id !== id));
+  const handleDeleteEvent = async (id) => {
+    try {
+      await api.delete(`/events/${id}`);
+      setEvents(events.filter((e) => e.id !== id));
+    } catch (err) {
+      console.error('Failed to delete event', err);
+    }
   };
 
   const selectedDayEvents = useMemo(
@@ -39,19 +68,49 @@ export default function CalendarPage() {
     [events, selectedDate]
   );
 
+  if (loading) {
+    return (
+      <div className="page">
+        <h1>Calendar</h1>
+        <p className="empty-state">Loading calendar...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="page">
       <div className="page-header">
         <h1>Calendar</h1>
-        <button className="btn-primary" onClick={() => setShowForm(true)}>+ New Event</button>
+        <motion.button
+          className="btn-primary"
+          onClick={() => setShowForm(true)}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+        >
+          + New Event
+        </motion.button>
       </div>
 
       <div className="calendar-layout">
         <div className="calendar-panel">
           <div className="calendar-nav">
-            <button className="btn-secondary" onClick={goPrevMonth}>← Prev</button>
+            <motion.button
+              className="btn-secondary"
+              onClick={goPrevMonth}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              ← Prev
+            </motion.button>
             <h2>{monthLabel}</h2>
-            <button className="btn-secondary" onClick={goNextMonth}>Next →</button>
+            <motion.button
+              className="btn-secondary"
+              onClick={goNextMonth}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Next →
+            </motion.button>
           </div>
 
           <AnimatePresence mode="wait">
@@ -120,13 +179,15 @@ export default function CalendarPage() {
         </motion.div>
       </div>
 
-      {showForm && (
-        <EventForm
-          defaultDate={selectedDate}
-          onSave={handleSaveEvent}
-          onClose={() => setShowForm(false)}
-        />
-      )}
+      <AnimatePresence>
+        {showForm && (
+          <EventForm
+            defaultDate={selectedDate}
+            onSave={handleSaveEvent}
+            onClose={() => setShowForm(false)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

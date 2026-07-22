@@ -36,6 +36,9 @@ app.use('/api/repos', repoRoutes);
 const timeLogRoutes = require('./routes/timelogs');
 app.use('/api/timelogs', timeLogRoutes);
 
+const eventRoutes = require('./routes/events');
+app.use('/api/events', eventRoutes);
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('MongoDB connected successfully');

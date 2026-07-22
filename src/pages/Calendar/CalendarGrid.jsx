@@ -45,16 +45,17 @@ export default function CalendarGrid({ currentDate, events, onDayClick, selected
             transition={{ duration: 0.2, delay: day * 0.01 }}
           >
             <span className="cell-day-num">{day}</span>
-            <div className="cell-dots">
-              {dayEvents.slice(0, 3).map((e) => (
-                <span
-                  key={e.id}
-                  className="event-dot"
-                  style={{ background: typeColors[e.type] }}
-                />
-              ))}
-              {dayEvents.length > 3 && <span className="more-dot">+{dayEvents.length - 3}</span>}
-            </div>
+         <div className="cell-dots">
+  {dayEvents.slice(0, 4).map((e) => (
+    <span
+      key={e.id}
+      className="event-dot"
+      style={{ background: typeColors[e.type] }}
+      title={e.title}
+    />
+  ))}
+  {dayEvents.length > 4 && <span className="more-dot">+{dayEvents.length - 4}</span>}
+</div>
           </motion.div>
         );
       })}
