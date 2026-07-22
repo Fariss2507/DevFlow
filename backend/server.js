@@ -42,6 +42,9 @@ app.use('/api/events', eventRoutes);
 const analyticsRoutes = require('./routes/analytics');
 app.use('/api/analytics', analyticsRoutes);
 
+const userRoutes = require('./routes/users');
+app.use('/api/users', userRoutes);
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('MongoDB connected successfully');

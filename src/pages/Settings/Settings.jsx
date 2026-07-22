@@ -1,17 +1,23 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
+import api from '../../services/api';
 import './Settings.css';
 
+const cards = [
+  'profile', 'appearance', 'password', 'notifications', 'language', 'logout',
+];
+
 export default function Settings() {
-  const { user, logout } = useAuth();
+  const { user, logout, setUser } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState({
-    name: user?.name || 'Your Name',
-    email: user?.email || 'you@example.com',
+    name: user?.name || '',
+    email: user?.email || '',
   });
   const [passwords, setPasswords] = useState({
     current: '',
@@ -26,23 +32,41 @@ export default function Settings() {
   });
   const [language, setLanguage] = useState('English');
   const [savedMsg, setSavedMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleProfileSave = (e) => {
+  const handleProfileSave = async (e) => {
     e.preventDefault();
-    setSavedMsg('Profile updated successfully.');
-    setTimeout(() => setSavedMsg(''), 2500);
+    setErrorMsg('');
+    try {
+      const res = await api.put('/users/profile', profile);
+      localStorage.setItem('devflow_user', JSON.stringify(res.data));
+      if (setUser) setUser(res.data);
+      setSavedMsg('Profile updated successfully.');
+      setTimeout(() => setSavedMsg(''), 2500);
+    } catch (err) {
+      setErrorMsg(err.response?.data?.message || 'Failed to update profile');
+    }
   };
 
-  const handlePasswordSave = (e) => {
+  const handlePasswordSave = async (e) => {
     e.preventDefault();
+    setErrorMsg('');
     if (!passwords.current || !passwords.newPassword) return;
     if (passwords.newPassword !== passwords.confirm) {
-      alert('New passwords do not match.');
+      setErrorMsg('New passwords do not match.');
       return;
     }
-    setPasswords({ current: '', newPassword: '', confirm: '' });
-    setSavedMsg('Password changed successfully.');
-    setTimeout(() => setSavedMsg(''), 2500);
+    try {
+      await api.put('/users/password', {
+        currentPassword: passwords.current,
+        newPassword: passwords.newPassword,
+      });
+      setPasswords({ current: '', newPassword: '', confirm: '' });
+      setSavedMsg('Password changed successfully.');
+      setTimeout(() => setSavedMsg(''), 2500);
+    } catch (err) {
+      setErrorMsg(err.response?.data?.message || 'Failed to change password');
+    }
   };
 
   const handleLogout = () => {
@@ -54,10 +78,37 @@ export default function Settings() {
     <div className="page">
       <h1>Settings</h1>
 
-      {savedMsg && <div className="settings-toast">{savedMsg}</div>}
+      <AnimatePresence>
+        {savedMsg && (
+          <motion.div
+            className="settings-toast"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+          >
+            {savedMsg}
+          </motion.div>
+        )}
+        {errorMsg && (
+          <motion.div
+            className="settings-toast"
+            style={{ background: '#fee2e2', color: '#991b1b' }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+          >
+            {errorMsg}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="settings-grid">
-        <div className="settings-card premium-card">
+        <motion.div
+          className="settings-card premium-card"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0 * 0.06 }}
+        >
           <h2>Profile</h2>
           <form onSubmit={handleProfileSave}>
             <label>Full Name</label>
@@ -73,11 +124,23 @@ export default function Settings() {
               onChange={(e) => setProfile({ ...profile, email: e.target.value })}
             />
 
-            <button type="submit" className="btn-primary">Save Profile</button>
+            <motion.button
+              type="submit"
+              className="btn-primary"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Save Profile
+            </motion.button>
           </form>
-        </div>
+        </motion.div>
 
-        <div className="settings-card premium-card">
+        <motion.div
+          className="settings-card premium-card"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 * 0.06 }}
+        >
           <h2>Appearance</h2>
           <div className="theme-toggle-row">
             <div>
@@ -86,17 +149,29 @@ export default function Settings() {
                 {theme === 'light' ? 'Light mode is on' : 'Dark mode is on'}
               </div>
             </div>
-            <button
+            <motion.button
               className={`theme-switch ${theme === 'dark' ? 'dark' : ''}`}
               onClick={toggleTheme}
               aria-label="Toggle theme"
+              whileTap={{ scale: 0.9 }}
             >
-              <span className="theme-switch-icon">{theme === 'light' ? '☀️' : '🌙'}</span>
-            </button>
+              <motion.span
+                className="theme-switch-icon"
+                layout
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              >
+                {theme === 'light' ? '☀️' : '🌙'}
+              </motion.span>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="settings-card premium-card">
+        <motion.div
+          className="settings-card premium-card"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2 * 0.06 }}
+        >
           <h2>Change Password</h2>
           <form onSubmit={handlePasswordSave}>
             <label>Current Password</label>
@@ -120,11 +195,23 @@ export default function Settings() {
               onChange={(e) => setPasswords({ ...passwords, confirm: e.target.value })}
             />
 
-            <button type="submit" className="btn-primary">Update Password</button>
+            <motion.button
+              type="submit"
+              className="btn-primary"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Update Password
+            </motion.button>
           </form>
-        </div>
+        </motion.div>
 
-        <div className="settings-card premium-card">
+        <motion.div
+          className="settings-card premium-card"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 3 * 0.06 }}
+        >
           <h2>Notifications</h2>
           {Object.entries({
             deadlines: 'Deadline reminders',
@@ -143,9 +230,14 @@ export default function Settings() {
               {label}
             </label>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="settings-card premium-card">
+        <motion.div
+          className="settings-card premium-card"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 4 * 0.06 }}
+        >
           <h2>Language</h2>
           <label>Preferred Language</label>
           <select value={language} onChange={(e) => setLanguage(e.target.value)}>
@@ -154,15 +246,25 @@ export default function Settings() {
             <option>Spanish</option>
             <option>French</option>
           </select>
-        </div>
+        </motion.div>
 
-        <div className="settings-card premium-card logout-card">
+        <motion.div
+          className="settings-card premium-card logout-card"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 5 * 0.06 }}
+        >
           <h2>Account</h2>
           <p className="settings-sublabel">Log out of your DevFlow account on this device.</p>
-          <button className="btn-danger btn-logout" onClick={handleLogout}>
+          <motion.button
+            className="btn-danger btn-logout"
+            onClick={handleLogout}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             🚪 Log Out
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
     </div>
   );
