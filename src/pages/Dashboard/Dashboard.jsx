@@ -1,19 +1,46 @@
+import { useState, useEffect } from "react";
 import AuroraHero from "../../components/AuroraHero";
 import StatCard from "../../components/StatCard";
-
-import {
-  stats,
-  recentNotes,
-  weeklyProductivity,
-} from "../../data/dashboardData";
+import api from "../../services/api";
 
 import "./Dashboard.css";
 
 export default function Dashboard() {
+  const [stats, setStats] = useState([]);
+  const [recentNotes, setRecentNotes] = useState([]);
+  const [weeklyProductivity, setWeeklyProductivity] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
+  const fetchDashboard = async () => {
+    try {
+      const res = await api.get("/dashboard");
+      setStats(res.data.stats);
+      setRecentNotes(res.data.recentNotes);
+      setWeeklyProductivity(res.data.weeklyProductivity);
+    } catch (err) {
+      console.error("Failed to fetch dashboard", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const maxHours = Math.max(
     ...weeklyProductivity.map((d) => d.hours),
     1
   );
+
+  if (loading) {
+    return (
+      <div className="page dashboard-page">
+        <AuroraHero />
+        <p className="empty-state">Loading dashboard...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="page dashboard-page">
@@ -49,10 +76,10 @@ export default function Dashboard() {
 
           <div className="bar-chart">
 
-            {weeklyProductivity.map((day) => (
+            {weeklyProductivity.map((day, i) => (
               <div
                 className="bar-column"
-                key={day.day}
+                key={i}
               >
 
                 <div
@@ -87,25 +114,29 @@ export default function Dashboard() {
 
           <ul className="recent-list">
 
-            {recentNotes.map((note) => (
+            {recentNotes.length === 0 ? (
+              <p className="empty-mini">No notes yet</p>
+            ) : (
+              recentNotes.map((note) => (
 
-              <li key={note.id}>
+                <li key={note.id}>
 
-                <div className="recent-left">
+                  <div className="recent-left">
 
-                  <span className="recent-title">
-                    {note.title}
+                    <span className="recent-title">
+                      {note.title}
+                    </span>
+
+                  </div>
+
+                  <span className="recent-date">
+                    {note.date}
                   </span>
 
-                </div>
+                </li>
 
-                <span className="recent-date">
-                  {note.date}
-                </span>
-
-              </li>
-
-            ))}
+              ))
+            )}
 
           </ul>
 
