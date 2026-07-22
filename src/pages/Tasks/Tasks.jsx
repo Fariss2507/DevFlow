@@ -4,6 +4,7 @@ import TaskForm from './TaskForm';
 import { statusColumns } from '../../data/tasksData';
 import api from '../../services/api';
 import './Tasks.css';
+import AuroraBackground from '../../components/AuroraBackground';
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
@@ -125,6 +126,7 @@ export default function Tasks() {
   }
     return (
     <div className="page">
+      
       <div className="page-header">
         <h1>Tasks</h1>
         <button className="btn-primary" onClick={openNewForm}>

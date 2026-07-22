@@ -41,7 +41,7 @@ export default function GlobalSearch() {
   return (
     <>
       <button className="search-trigger" onClick={() => setIsOpen(true)}>
-        🔍 Search everything...
+        🔍 Search 
         <span className="search-kbd">Ctrl+K</span>
       </button>
 
