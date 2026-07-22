@@ -1,46 +1,20 @@
-import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTimer } from '../../context/TimerContext';
 import { formatDuration } from '../../data/timeTrackerData';
 import './TimeTracker.css';
 
 export default function Timer({ onLogSaved }) {
-  const [taskName, setTaskName] = useState('');
-  const [seconds, setSeconds] = useState(0);
-  const [running, setRunning] = useState(false);
-  const intervalRef = useRef(null);
+  const { taskName, setTaskName, seconds, running, startTimer, stopTimer, resetTimer } = useTimer();
 
-  useEffect(() => {
-    if (running) {
-      intervalRef.current = setInterval(() => {
-        setSeconds((s) => s + 1);
-      }, 1000);
-    } else {
-      clearInterval(intervalRef.current);
-    }
-    return () => clearInterval(intervalRef.current);
-  }, [running]);
-
-  const handleStart = () => {
-    if (!taskName.trim()) return;
-    setRunning(true);
+  const handleSave = () => {
+    if (seconds === 0) return;
+    onLogSaved({
+      task: taskName || 'Untitled task',
+      date: new Date().toISOString().split('T')[0],
+      duration: seconds,
+    });
+    resetTimer();
   };
-
-  const handleStop = () => {
-    setRunning(false);
-  };
-
- const handleSave = () => {
-  if (seconds === 0) return;
-  onLogSaved({
-    id: Date.now(),
-    task: taskName || 'Untitled task',
-    date: new Date().toISOString().split('T')[0],
-    duration: seconds,
-  });
-  setSeconds(0);
-  setTaskName('');
-  setRunning(false);
-};
 
   return (
     <motion.div
@@ -72,7 +46,7 @@ export default function Timer({ onLogSaved }) {
             <motion.button
               key="start"
               className="btn-primary"
-              onClick={handleStart}
+              onClick={startTimer}
               disabled={!taskName.trim()}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -83,7 +57,7 @@ export default function Timer({ onLogSaved }) {
             <motion.button
               key="stop"
               className="btn-danger btn-stop"
-              onClick={handleStop}
+              onClick={stopTimer}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >

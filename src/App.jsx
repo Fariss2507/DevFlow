@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { TimerProvider } from './context/TimerContext';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import AppRoutes from './routes/AppRoutes';
@@ -35,9 +36,11 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <BrowserRouter>
-          <Layout />
-        </BrowserRouter>
+        <TimerProvider>
+          <BrowserRouter>
+            <Layout />
+          </BrowserRouter>
+        </TimerProvider>
       </AuthProvider>
     </ThemeProvider>
   );
