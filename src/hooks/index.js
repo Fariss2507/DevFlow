@@ -1,4 +1,4 @@
 export { useAuth } from './useAuth';
-export { useTheme } from './useTheme';
+export { useClickOutside } from './useClickOutside';
 export { useDebounce } from './useDebounce';
 export { useFetch } from './useFetch';

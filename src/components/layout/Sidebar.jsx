@@ -1,8 +1,11 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, FolderKanban, ListTodo, Bug, StickyNote, Code2,
   Plug, GitBranch, Clock, CalendarDays, BarChart3, Settings, Sparkles,
+  Sun, Moon, LogOut
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { useThemeStore } from '@/store/themeStore';
 import './Sidebar.css';
 
 const links = [
@@ -21,6 +24,15 @@ const links = [
 ];
 
 export default function Sidebar({ isOpen, onClose }) {
+  const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useThemeStore();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
     <>
       {isOpen && <div className="sidebar-backdrop" onClick={onClose} />}
@@ -50,6 +62,37 @@ export default function Sidebar({ isOpen, onClose }) {
             })}
           </ul>
         </nav>
+
+        {user && (
+          <div className="sidebar-footer">
+            <div className="sidebar-user-card">
+              <div className="user-avatar">
+                {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+              </div>
+              <div className="user-info">
+                <span className="user-name">{user.name || 'User'}</span>
+                <span className="user-email">{user.email}</span>
+              </div>
+              
+              <div className="user-actions">
+                <button 
+                  className="icon-btn theme-toggle" 
+                  onClick={toggleTheme}
+                  title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+                >
+                  {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
+                </button>
+                <button 
+                  className="icon-btn logout-btn" 
+                  onClick={handleLogout}
+                  title="Logout"
+                >
+                  <LogOut size={14} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </aside>
     </>
   );

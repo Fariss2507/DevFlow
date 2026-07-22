@@ -1,13 +1,21 @@
 import { useState, useEffect } from "react";
-import { AuroraHero } from "@/components/features";
-import { StatCard, AgentBentoGrid } from "@/components/common";
+import { FolderKanban, CheckSquare, ListTodo, Bug } from 'lucide-react';
+import { StatCard } from "@/components/common";
 import api from "@/services/api";
-
+import { useAuth } from '@/context/AuthContext';
 
 
 import "./Dashboard.css";
 
+const iconMap = {
+  '📁': <FolderKanban size={24} />,
+  '📝': <ListTodo size={24} />,
+  '✅': <CheckSquare size={24} />,
+  '🐞': <Bug size={24} />
+};
+
 export default function Dashboard() {
+  const { user } = useAuth();
   const [stats, setStats] = useState([]);
   const [recentNotes, setRecentNotes] = useState([]);
   const [weeklyProductivity, setWeeklyProductivity] = useState([]);
@@ -38,7 +46,9 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="page dashboard-page">
-        <AuroraHero />
+        <div className="page-header" style={{ marginBottom: '24px' }}>
+          <h1 style={{ margin: 0 }}>Welcome back{user?.name ? `, ${user.name.split(' ')[0]}` : ''}.</h1>
+        </div>
         <p className="empty-state">Loading dashboard...</p>
       </div>
     );
@@ -47,30 +57,26 @@ export default function Dashboard() {
   return (
     <div className="page dashboard-page">
 
-      {/* ================= HERO ================= */}
-
-      <AuroraHero />
+      <div className="page-header" style={{ marginBottom: '24px' }}>
+        <h1 style={{ margin: 0 }}>Welcome back{user?.name ? `, ${user.name.split(' ')[0]}` : ''}.</h1>
+        <p className="text-muted-foreground" style={{ marginTop: '8px' }}>
+          Here is what's happening with your projects today.
+        </p>
+      </div>
 
 
       <section className="stats-grid">
         {stats.map((stat) => (
           <StatCard
             key={stat.id}
-            icon={stat.icon}
+            icon={iconMap[stat.icon] || <FolderKanban size={24} />}
             label={stat.label}
             value={stat.value}
           />
         ))}
       </section>
 
-      {/* ================= BENTO GRID ================= */}
-      <div className="my-8">
-        <h2 className="text-xl font-bold text-foreground text-left px-4 mb-4 tracking-tight">AI Agent Workspace</h2>
-        <AgentBentoGrid />
-      </div>
-
-
-     
+      {/* ================= BENTO GRID REMOVED ================= */}
 
       <section className="dashboard-lower">
 

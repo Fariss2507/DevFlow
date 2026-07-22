@@ -24,7 +24,7 @@ export default function PerspectiveGrid() {
             onMouseMove={handleMove}
         >
             <div className="spotlight"></div>
-            <div className="grid">{cells}</div>
+            <div className="perspective-grid-pattern">{cells}</div>
             <div className="hero">
                 <span>DEVFLOW</span>
                 <h2>Organize<br />Everything.</h2>

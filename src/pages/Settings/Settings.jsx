@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
-import { useTheme } from '@/context/ThemeContext';
+import { useThemeStore } from '@/store/themeStore';
 import api from '@/services/api';
 
 import './Settings.css';
@@ -13,7 +13,7 @@ const cards = [
 
 export default function Settings() {
   const { user, logout, setUser } = useAuth();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useThemeStore();
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState({
@@ -25,13 +25,18 @@ export default function Settings() {
     newPassword: '',
     confirm: '',
   });
-  const [notifications, setNotifications] = useState({
-    deadlines: true,
-    newTasks: true,
-    bugAssignments: true,
-    releases: false,
+  const [notifications, setNotifications] = useState(() => {
+    const saved = localStorage.getItem('devflow_notifications');
+    return saved ? JSON.parse(saved) : {
+      deadlines: true,
+      newTasks: true,
+      bugAssignments: true,
+      releases: false,
+    };
   });
-  const [language, setLanguage] = useState('English');
+  const [language, setLanguage] = useState(() => {
+    return localStorage.getItem('devflow_language') || 'English';
+  });
   const [savedMsg, setSavedMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -224,9 +229,11 @@ export default function Settings() {
               <input
                 type="checkbox"
                 checked={notifications[key]}
-                onChange={(e) =>
-                  setNotifications({ ...notifications, [key]: e.target.checked })
-                }
+                onChange={(e) => {
+                  const newNotifs = { ...notifications, [key]: e.target.checked };
+                  setNotifications(newNotifs);
+                  localStorage.setItem('devflow_notifications', JSON.stringify(newNotifs));
+                }}
               />
               {label}
             </label>
@@ -241,7 +248,10 @@ export default function Settings() {
         >
           <h2>Language</h2>
           <label>Preferred Language</label>
-          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+          <select value={language} onChange={(e) => {
+            setLanguage(e.target.value);
+            localStorage.setItem('devflow_language', e.target.value);
+          }}>
             <option>English</option>
             <option>Urdu</option>
             <option>Spanish</option>

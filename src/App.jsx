@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { BrowserRouter, useLocation } from 'react-router-dom';
 import { AuthProvider } from '@/context/AuthContext';
-import { ThemeProvider } from '@/context/ThemeContext';
 import { TimerProvider } from '@/context/TimerContext';
-import { Navbar, Sidebar } from '@/components/layout';
+import { Sidebar } from '@/components/layout';
 import AppRoutes from '@/routes/AppRoutes';
 import '@/styles/index.css';
 import './App.css';
@@ -20,29 +19,26 @@ function Layout() {
   }
 
   return (
-    <>
-      <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-      <div className="app-layout">
-        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <div className="app-layout">
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <div className="main-wrapper">
         <main className="main-content">
           <AppRoutes />
         </main>
       </div>
-    </>
+    </div>
   );
 }
 
 function App() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <TimerProvider>
-          <BrowserRouter>
-            <Layout />
-          </BrowserRouter>
-        </TimerProvider>
-      </AuthProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <TimerProvider>
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
+      </TimerProvider>
+    </AuthProvider>
   );
 }
 

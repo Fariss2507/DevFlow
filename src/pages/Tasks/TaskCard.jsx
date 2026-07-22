@@ -18,7 +18,7 @@ export default function TaskCard({ task, onEdit, onDelete, onDragStart }) {
       onDragStart={(e) => onDragStart(e, task.id)}
       onClick={() => onEdit(task)}
       className={cn(
-        "group relative flex flex-col gap-2.5 overflow-hidden rounded-[16px] p-4 text-left cursor-grab active:cursor-grabbing select-none",
+        "task-card group relative flex flex-col gap-2.5 overflow-hidden rounded-[16px] p-4 text-left cursor-grab active:cursor-grabbing select-none",
         "bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800/60",
         "shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_1px_2px_rgba(0,0,0,0.03)]",
         "dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.03),0_0_0_1px_rgba(255,255,255,0.03),0_1px_2px_rgba(0,0,0,0.15)]",

@@ -1,4 +1,5 @@
 import "./AuroraHero.css";
+import ReactBitsAurora from "./ReactBitsAurora";
 
 export default function AuroraHero({
   badge = "DEVFLOW",
@@ -11,12 +12,7 @@ export default function AuroraHero({
 }) {
   return (
     <section className="aurora-hero">
-      <div className="aurora-bg">
-        <span className="blob blob-1"></span>
-        <span className="blob blob-2"></span>
-        <span className="blob blob-3"></span>
-        <span className="grid-overlay"></span>
-      </div>
+      <ReactBitsAurora />
 
       <div className="hero-card">
         <div className="hero-badge">

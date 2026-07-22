@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneLight, oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { vs as oneLight, vscDarkPlus as oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useTheme } from '@/hooks/useTheme';
+import { useThemeStore } from '@/store/themeStore';
 
 export default function SnippetCard({ snippet, onEdit, onDelete, onToggleFavorite }) {
   const [copied, setCopied] = useState(false);
-  const { theme } = useTheme();
+  const { theme } = useThemeStore();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(snippet.code);
