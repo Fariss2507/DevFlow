@@ -29,18 +29,18 @@ export default function Timer({ onLogSaved }) {
     setRunning(false);
   };
 
-  const handleSave = () => {
-    if (seconds === 0) return;
-    onLogSaved({
-      id: Date.now(),
-      task: taskName || 'Untitled task',
-      date: new Date().toISOString().split('T')[0],
-      duration: seconds,
-    });
-    setSeconds(0);
-    setTaskName('');
-    setRunning(false);
-  };
+ const handleSave = () => {
+  if (seconds === 0) return;
+  onLogSaved({
+    id: Date.now(),
+    task: taskName || 'Untitled task',
+    date: new Date().toISOString().split('T')[0],
+    duration: seconds,
+  });
+  setSeconds(0);
+  setTaskName('');
+  setRunning(false);
+};
 
   return (
     <motion.div
