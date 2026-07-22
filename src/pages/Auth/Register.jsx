@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
-import PerspectiveGrid from '../../components/PerspectiveGrid';
 import './Auth.css';
 
 const fieldVariants = {
@@ -16,28 +15,25 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
     if (!name || !email || !password || !confirmPassword) {
       setError('Please fill in all fields.');
       return;
     }
-
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
-
-    const result = register(name, email, password);
-
+    const result = await register(name, email, password);
     if (result.success) {
       navigate('/dashboard');
+    } else {
+      setError(result.message);
     }
   };
 
@@ -51,7 +47,6 @@ export default function Register() {
       >
         <div className="auth-topbar">
           <div className="auth-logo">DevFlow</div>
-
           <Link to="/login" className="auth-topbar-link">
             Already have an account? <span>Log in</span>
           </Link>
@@ -65,22 +60,11 @@ export default function Register() {
             animate="visible"
             variants={{
               hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: 0.08,
-                  delayChildren: 0.15,
-                },
-              },
+              visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
             }}
           >
-            <motion.h1 variants={fieldVariants}>
-              Create your account
-            </motion.h1>
-
-            <motion.p
-              className="auth-subtitle"
-              variants={fieldVariants}
-            >
+            <motion.h1 variants={fieldVariants}>Create your account</motion.h1>
+            <motion.p className="auth-subtitle" variants={fieldVariants}>
               Start organizing your dev workflow
             </motion.p>
 
@@ -96,45 +80,41 @@ export default function Register() {
 
             <motion.div variants={fieldVariants}>
               <label>Full Name</label>
-
               <input
                 type="text"
-                placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
               />
             </motion.div>
 
             <motion.div variants={fieldVariants}>
               <label>Email</label>
-
               <input
                 type="email"
-                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
               />
             </motion.div>
 
             <motion.div variants={fieldVariants}>
               <label>Password</label>
-
               <input
                 type="password"
-                placeholder="Create a password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="Create a password"
               />
             </motion.div>
 
             <motion.div variants={fieldVariants}>
               <label>Confirm Password</label>
-
               <input
                 type="password"
-                placeholder="Confirm your password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm your password"
               />
             </motion.div>
 
@@ -155,9 +135,19 @@ export default function Register() {
         className="auth-right"
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
       >
-        <PerspectiveGrid />
+        <div className="auth-blob auth-blob-1" />
+        <div className="auth-blob auth-blob-2" />
+        <motion.div
+          className="auth-right-content"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          <h2>Join developers building faster</h2>
+          <p>Track projects, squash bugs, and never lose a snippet again.</p>
+        </motion.div>
       </motion.div>
     </div>
   );
