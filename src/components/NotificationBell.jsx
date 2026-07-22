@@ -1,24 +1,64 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { initialNotifications, notifIcons } from '../data/notificationsData';
+import api from '../services/api';
 import './NotificationBell.css';
 
+const notifIcons = {
+  Deadline: '⏰',
+  Task: '📝',
+  Bug: '🐞',
+  Release: '🚀',
+};
+
 export default function NotificationBell() {
-  const [notifications, setNotifications] = useState(initialNotifications);
+  const [notifications, setNotifications] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  const fetchNotifications = async () => {
+    try {
+      const res = await api.get('/notifications');
+      const mapped = res.data.map((n) => ({
+        ...n,
+        id: n._id,
+        time: new Date(n.createdAt).toLocaleString(),
+      }));
+      setNotifications(mapped);
+    } catch (err) {
+      console.error('Failed to fetch notifications', err);
+    }
+  };
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
-  const markAsRead = (id) => {
-    setNotifications(notifications.map((n) => (n.id === id ? { ...n, read: true } : n)));
+  const markAsRead = async (id) => {
+    try {
+      await api.put(`/notifications/${id}/read`);
+      setNotifications(notifications.map((n) => (n.id === id ? { ...n, read: true } : n)));
+    } catch (err) {
+      console.error('Failed to mark as read', err);
+    }
   };
 
-  const markAllRead = () => {
-    setNotifications(notifications.map((n) => ({ ...n, read: true })));
+  const markAllRead = async () => {
+    try {
+      await api.put('/notifications/read-all');
+      setNotifications(notifications.map((n) => ({ ...n, read: true })));
+    } catch (err) {
+      console.error('Failed to mark all read', err);
+    }
   };
 
-  const clearAll = () => {
-    setNotifications([]);
+  const clearAll = async () => {
+    try {
+      await api.delete('/notifications/clear-all');
+      setNotifications([]);
+    } catch (err) {
+      console.error('Failed to clear notifications', err);
+    }
   };
 
   return (
@@ -73,7 +113,7 @@ export default function NotificationBell() {
                         exit={{ opacity: 0, x: 10 }}
                         layout
                       >
-                        <span className="notif-icon">{notifIcons[n.type]}</span>
+                        <span className="notif-icon">{notifIcons[n.type] || '🔔'}</span>
                         <div className="notif-content">
                           <p>{n.message}</p>
                           <span className="notif-time">{n.time}</span>

@@ -1,3 +1,5 @@
+const Notification = require('../models/Notification');
+
 const express = require('express');
 const Bug = require('../models/Bug');
 const authMiddleware = require('../middleware/auth');
@@ -17,6 +19,11 @@ router.post('/', authMiddleware, async (req, res) => {
   try {
     const newBug = new Bug({ ...req.body, user: req.userId });
     await newBug.save();
+    await Notification.create({
+  type: 'Bug',
+  message: `New bug reported: "${newBug.title}"`,
+  user: req.userId,
+});
     res.status(201).json(newBug);
   } catch (err) {
     res.status(500).json({ message: err.message });

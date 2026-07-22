@@ -1,3 +1,5 @@
+const Notification = require('../models/Notification');
+
 const express = require('express');
 const Task = require('../models/Task');
 const authMiddleware = require('../middleware/auth');
@@ -17,6 +19,11 @@ router.post('/', authMiddleware, async (req, res) => {
   try {
     const newTask = new Task({ ...req.body, user: req.userId });
     await newTask.save();
+    await Notification.create({
+  type: 'Task',
+  message: `New task created: "${newTask.title}"`,
+  user: req.userId,
+});
     res.status(201).json(newTask);
   } catch (err) {
     res.status(500).json({ message: err.message });
