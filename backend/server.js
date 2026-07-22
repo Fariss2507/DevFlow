@@ -48,6 +48,9 @@ app.use('/api/users', userRoutes);
 const dashboardRoutes = require('./routes/dashboard');
 app.use('/api/dashboard', dashboardRoutes);
 
+const searchRoutes = require('./routes/search');
+app.use('/api/search', searchRoutes);
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('MongoDB connected successfully');

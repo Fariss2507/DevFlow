@@ -1,12 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { searchAll, typeIcons } from '../pages/Search/searchUtils';
+import api from '../services/api';
 import './GlobalSearch.css';
+
+const typeIcons = {
+  Project: '📁',
+  Task: '📝',
+  Bug: '🐞',
+  Note: '📄',
+  Snippet: '💻',
+};
 
 export default function GlobalSearch() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -30,7 +39,20 @@ export default function GlobalSearch() {
     }
   }, [isOpen]);
 
-  const results = searchAll(query);
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (query.trim()) {
+        api
+          .get(`/search?q=${encodeURIComponent(query)}`)
+          .then((res) => setResults(res.data))
+          .catch((err) => console.error('Search failed', err));
+      } else {
+        setResults([]);
+      }
+    }, 300);
+
+    return () => clearTimeout(delayDebounce);
+  }, [query]);
 
   const handleSelect = (link) => {
     navigate(link);
@@ -41,7 +63,7 @@ export default function GlobalSearch() {
   return (
     <>
       <button className="search-trigger" onClick={() => setIsOpen(true)}>
-        🔍 Search 
+        🔍 Search
         <span className="search-kbd">Ctrl+K</span>
       </button>
 
@@ -66,7 +88,7 @@ export default function GlobalSearch() {
                 ref={inputRef}
                 type="text"
                 className="search-input"
-                placeholder="Search projects, tasks, bugs, notes, snippets, APIs..."
+                placeholder="Search projects, tasks, bugs, notes, snippets..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
