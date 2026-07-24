@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter, useLocation, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { TimerProvider } from '@/context/TimerContext';
-import { Sidebar } from '@/components/layout';
+import { Sidebar, Navbar } from '@/components/layout';
 import AppRoutes from '@/routes/AppRoutes';
 import CommandPalette from '@/components/common/CommandPalette';
 import FloatingAiAssistant from '@/components/common/FloatingAiAssistant';
@@ -39,6 +39,7 @@ function Layout() {
     <div className="app-layout">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="main-wrapper">
+        <Navbar onMenuClick={() => setSidebarOpen(true)} />
         <main className="main-content">
           <AppRoutes />
         </main>

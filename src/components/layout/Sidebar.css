@@ -197,6 +197,16 @@
 }
 
 
+.mobile-sidebar-close-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 @media (max-width: 900px) {
   .sidebar {
     position: fixed;
@@ -214,6 +224,12 @@
     transform: translateX(0);
   }
 
+  .mobile-sidebar-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .sidebar-backdrop {
     display: block;
     position: fixed;
@@ -223,3 +239,4 @@
     z-index: 50;
   }
 }
+

@@ -2,8 +2,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, FolderKanban, ListTodo, Bug, StickyNote, Code2,
   Plug, GitBranch, Clock, CalendarDays, BarChart3, Settings, Sparkles,
-  FolderArchive, BookOpen, Rocket, Database, User, ShieldAlert,
-  Sun, Moon, LogOut
+  FolderArchive, BookOpen, Rocket, Database, User,
+  Sun, Moon, LogOut, X
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useThemeStore } from '@/store/themeStore';
@@ -46,9 +46,14 @@ export default function Sidebar({ isOpen, onClose }) {
       {isOpen && <div className="sidebar-backdrop" onClick={onClose} />}
 
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-        <div className="sidebar-brand" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <DevFlowLogo size={30} />
-          <span style={{ fontSize: '1.25rem', fontWeight: '800' }}>DevForge AI</span>
+        <div className="sidebar-brand" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingRight: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <DevFlowLogo size={30} />
+            <span style={{ fontSize: '1.25rem', fontWeight: '800' }}>DevForge AI</span>
+          </div>
+          <button className="mobile-sidebar-close-btn" onClick={onClose}>
+            <X size={20} />
+          </button>
         </div>
 
         <nav>
