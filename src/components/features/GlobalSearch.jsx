@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Search } from 'lucide-react';
 import api from '@/services/api';
 import './GlobalSearch.css';
 
@@ -62,8 +63,9 @@ export default function GlobalSearch() {
 
   return (
     <>
-      <button className="search-trigger" onClick={() => setIsOpen(true)}>
-        🔍 Search
+      <button className="search-trigger" onClick={() => setIsOpen(true)} title="Search">
+        <Search size={16} />
+        <span className="search-text">Search</span>
         <span className="search-kbd">Ctrl+K</span>
       </button>
 

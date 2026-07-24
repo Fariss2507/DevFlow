@@ -11,7 +11,7 @@
   padding: 0 var(--spacing-lg);
   position: sticky;
   top: 20px;
-  margin: 20px 20px 20px 20px;
+  margin: 20px;
   z-index: 40;
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
@@ -19,25 +19,20 @@
   transition: all 0.3s ease;
 }
 
-@media (max-width: 900px) {
-  .navbar {
-    margin: 10px;
-    top: 10px;
-  }
-}
-
 .navbar-left {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: 12px;
 }
 
 .hamburger-btn {
   display: none;
   background: none;
+  border: none;
   color: var(--color-text);
   padding: 6px;
   border-radius: var(--radius-sm);
+  cursor: pointer;
   transition: background 0.2s;
 }
 
@@ -49,10 +44,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.5px;
-  color: var(--color-primary-dark);
+  color: var(--color-text);
 }
 
 .navbar-logo svg {
@@ -63,7 +58,7 @@
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: 12px;
 }
 
 .profile-menu-wrap {
@@ -80,6 +75,7 @@
   border-radius: 999px;
   color: var(--color-text);
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .profile-trigger:hover {
@@ -110,7 +106,6 @@
   height: 44px;
   font-size: 1.05rem;
 }
-
 
 .profile-backdrop {
   position: fixed;
@@ -164,16 +159,17 @@
   gap: 12px;
   padding: 12px var(--spacing-md);
   background: none;
+  border: none;
   font-size: 0.9rem;
   color: var(--color-text);
   text-align: left;
   transition: all 0.2s;
-  border-radius: 0;
+  cursor: pointer;
 }
 
 .profile-dropdown-item:hover {
   background: rgba(255,255,255,0.4);
-  padding-left: 24px;
+  padding-left: 20px;
 }
 
 [data-theme='dark'] .profile-dropdown-item:hover {
@@ -184,11 +180,35 @@
   color: #ef4444;
 }
 
+/* ---------- Mobile Responsive Styles ---------- */
 @media (max-width: 900px) {
+  .navbar {
+    height: 56px;
+    margin: 10px;
+    top: 10px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+
   .hamburger-btn {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .navbar-left {
+    gap: 8px;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hide the top-right profile trigger avatar on mobile screen */
+  .profile-menu-wrap {
+    display: none;
   }
 }
 

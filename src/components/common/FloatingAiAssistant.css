@@ -133,3 +133,16 @@
   padding: 0 12px;
   cursor: pointer;
 }
+
+@media (max-width: 480px) {
+  .floating-ai-container {
+    bottom: 16px;
+    right: 16px;
+  }
+  .floating-ai-card {
+    width: calc(100vw - 32px);
+    right: 0;
+    height: 460px;
+  }
+}
+
