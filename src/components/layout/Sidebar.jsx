@@ -28,7 +28,6 @@ const links = [
   { to: '/calendar', label: 'Calendar', icon: CalendarDays },
   { to: '/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/profile', label: 'Profile', icon: User },
-  { to: '/admin', label: 'Admin Panel', icon: ShieldAlert },
   { to: '/settings', label: 'Settings', icon: Settings },
 ];
 

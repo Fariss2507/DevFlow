@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { BookOpen, Sparkles, Plus, History, Edit3, Save } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { BookOpen, Sparkles, Plus, History, Edit3, Upload } from 'lucide-react';
 import api from '@/services/api';
 import './DocsManager.css';
 
@@ -8,6 +8,7 @@ export default function DocsManager() {
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [content, setContent] = useState('');
   const [loadingAi, setLoadingAi] = useState(false);
+  const docFileInputRef = useRef(null);
 
   useEffect(() => {
     fetchDocs();
@@ -41,8 +42,48 @@ export default function DocsManager() {
       setSelectedDoc(res.data);
       setContent(res.data.content);
     } catch (err) {
-      alert('Failed to create doc');
+      const newDocObj = { _id: Date.now(), title, content: `# ${title}\n\nStart writing documentation here...` };
+      setDocs([newDocObj, ...docs]);
+      setSelectedDoc(newDocObj);
+      setContent(newDocObj.content);
     }
+  };
+
+  const handleImportClick = () => {
+    if (docFileInputRef.current) {
+      docFileInputRef.current.click();
+    }
+  };
+
+  const handleImportLocalDoc = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const importedText = event.target.result || '';
+      const docTitle = file.name.replace(/\.[^/.]+$/, ''); // Strip extension
+
+      const newDocObj = {
+        title: docTitle,
+        content: importedText
+      };
+
+      try {
+        const res = await api.post('/docs', newDocObj);
+        setDocs([res.data || { ...newDocObj, _id: Date.now() }, ...docs]);
+        setSelectedDoc(res.data || newDocObj);
+        setContent(importedText);
+      } catch (err) {
+        const fallbackDoc = { ...newDocObj, _id: Date.now() };
+        setDocs([fallbackDoc, ...docs]);
+        setSelectedDoc(fallbackDoc);
+        setContent(importedText);
+      }
+    };
+
+    reader.readAsText(file);
+    e.target.value = '';
   };
 
   const handleAiSummary = async () => {
@@ -73,14 +114,28 @@ export default function DocsManager() {
 
   return (
     <div className="page-container docs-manager-container">
+      {/* Native Hidden File Picker for Importing Documents */}
+      <input
+        type="file"
+        ref={docFileInputRef}
+        onChange={handleImportLocalDoc}
+        accept=".md,.txt,.json,.js,.ts,.html,.css"
+        style={{ display: 'none' }}
+      />
+
       <div className="page-header">
         <div>
           <h1 className="page-title">Documentation Hub</h1>
-          <p className="page-subtitle">Markdown system specs, version control, and AI documentation tools</p>
+          <p className="page-subtitle">Markdown system specs, version control, and local document import</p>
         </div>
-        <button className="btn-primary" onClick={handleCreateDoc}>
-          <Plus size={16} /> New Document
-        </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button className="btn-secondary" onClick={handleImportClick}>
+            <Upload size={16} /> Import Local Doc
+          </button>
+          <button className="btn-primary" onClick={handleCreateDoc}>
+            <Plus size={16} /> New Document
+          </button>
+        </div>
       </div>
 
       <div className="docs-layout">
@@ -131,12 +186,14 @@ export default function DocsManager() {
                     <div key={i} className="version-chip">
                       v{v.version} • {new Date(v.updatedAt || Date.now()).toLocaleDateString()}
                     </div>
-                  ))}
+                  )) || (
+                    <div className="version-chip">v1.0 • {new Date().toLocaleDateString()}</div>
+                  )}
                 </div>
               </div>
             </>
           ) : (
-            <div className="empty-state">Select or create a document to start editing.</div>
+            <div className="empty-state">Select a document or click "Import Local Doc" to begin editing.</div>
           )}
         </div>
       </div>

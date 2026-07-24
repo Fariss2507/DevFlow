@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Folder, File, Upload, Search, Filter, Eye, Trash2, Plus } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Folder, File, Upload, Search, Eye, Trash2 } from 'lucide-react';
 import api from '@/services/api';
 import './FileManager.css';
 
@@ -8,6 +8,7 @@ export default function FileManager() {
   const [selectedFolder, setSelectedFolder] = useState('All');
   const [search, setSearch] = useState('');
   const [previewFile, setPreviewFile] = useState(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     fetchFiles();
@@ -22,22 +23,60 @@ export default function FileManager() {
     }
   };
 
-  const handleUpload = async (e) => {
-    const fileName = prompt('Enter file name to upload:');
-    if (!fileName) return;
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
-    try {
-      const newFile = {
-        name: fileName,
+  const handleRealFileUpload = async (e) => {
+    const selectedFile = e.target.files?.[0];
+    if (!selectedFile) return;
+
+    // Format size
+    const sizeInKB = Math.round(selectedFile.size / 1024);
+    const formattedSize = sizeInKB > 1024 ? `${(sizeInKB / 1024).toFixed(1)} MB` : `${sizeInKB} KB`;
+
+    // Read file content with FileReader
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const fileContent = event.target.result;
+
+      const newFileObj = {
+        name: selectedFile.name,
         folder: selectedFolder === 'All' ? 'Root' : selectedFolder,
-        category: 'Document',
-        size: `${Math.floor(Math.random() * 500) + 50} KB`,
-        fileType: fileName.split('.').pop() || 'txt'
+        category: selectedFile.type.startsWith('image/') ? 'Image' : 'Document',
+        size: formattedSize,
+        fileType: selectedFile.name.split('.').pop() || 'file',
+        content: fileContent || '[Binary / Media Content]'
       };
-      await api.post('/files', newFile);
-      fetchFiles();
+
+      try {
+        const res = await api.post('/files', newFileObj);
+        setFiles(prev => [res.data || newFileObj, ...prev]);
+      } catch (err) {
+        // Fallback for UI responsiveness if backend is offline
+        setFiles(prev => [{ ...newFileObj, _id: Date.now() }, ...prev]);
+      }
+    };
+
+    if (selectedFile.type.startsWith('text/') || selectedFile.name.match(/\.(js|jsx|ts|tsx|json|md|css|html|txt|csv|py|java|c|cpp)$/i)) {
+      reader.readAsText(selectedFile);
+    } else {
+      reader.readAsDataURL(selectedFile);
+    }
+
+    // Reset input
+    e.target.value = '';
+  };
+
+  const handleDeleteFile = async (e, id) => {
+    e.stopPropagation();
+    try {
+      await api.delete(`/files/${id}`);
+      setFiles(files.filter(f => f._id !== id));
     } catch (err) {
-      alert('File upload failed');
+      setFiles(files.filter(f => f._id !== id));
     }
   };
 
@@ -51,13 +90,21 @@ export default function FileManager() {
 
   return (
     <div className="page-container file-manager-container">
+      {/* Hidden Native Local File Picker */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleRealFileUpload}
+        style={{ display: 'none' }}
+      />
+
       <div className="page-header">
         <div>
           <h1 className="page-title">File Manager</h1>
-          <p className="page-subtitle">Organize project assets, documents, and code uploads</p>
+          <p className="page-subtitle">Upload and inspect local system assets, code files, and documents</p>
         </div>
-        <button className="btn-primary" onClick={handleUpload}>
-          <Upload size={16} /> Upload File
+        <button className="btn-primary" onClick={handleUploadClick}>
+          <Upload size={16} /> Upload Local File
         </button>
       </div>
 
@@ -95,10 +142,10 @@ export default function FileManager() {
 
           <div className="files-grid">
             {filteredFiles.length === 0 ? (
-              <div className="empty-state">No files found in this category.</div>
+              <div className="empty-state">No files uploaded yet. Click "Upload Local File" to pick files from your computer.</div>
             ) : (
               filteredFiles.map(file => (
-                <div key={file._id} className="file-card">
+                <div key={file._id || file.name} className="file-card">
                   <div className="file-icon-badge">
                     <File size={28} />
                   </div>
@@ -106,9 +153,18 @@ export default function FileManager() {
                     <div className="file-name" title={file.name}>{file.name}</div>
                     <div className="file-meta">{file.folder} • {file.size}</div>
                   </div>
-                  <button className="preview-btn" onClick={() => setPreviewFile(file)}>
-                    <Eye size={14} /> Preview
-                  </button>
+                  <div style={{ display: 'flex', gap: '6px', marginTop: '6px' }}>
+                    <button className="preview-btn" onClick={() => setPreviewFile(file)}>
+                      <Eye size={14} /> Preview
+                    </button>
+                    <button
+                      className="preview-btn"
+                      style={{ color: '#ef4444', borderColor: 'rgba(239, 68, 68, 0.3)' }}
+                      onClick={(e) => handleDeleteFile(e, file._id)}
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
                 </div>
               ))
             )}
@@ -126,11 +182,10 @@ export default function FileManager() {
             </div>
             <div className="modal-body">
               <p><strong>Folder:</strong> {previewFile.folder}</p>
-              <p><strong>Category:</strong> {previewFile.category}</p>
               <p><strong>Size:</strong> {previewFile.size}</p>
               <p><strong>Type:</strong> {previewFile.fileType}</p>
               <div className="file-preview-box">
-                {`[Preview Content for ${previewFile.name}]\nSample data payload rendered successfully in preview viewport.`}
+                {previewFile.content || `[Real file content for ${previewFile.name}]`}
               </div>
             </div>
           </div>

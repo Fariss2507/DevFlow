@@ -21,7 +21,6 @@ import DocsManager from '@/pages/DocsManager/DocsManager';
 import Deployments from '@/pages/Deployments/Deployments';
 import DatabaseExplorer from '@/pages/DatabaseExplorer/DatabaseExplorer';
 import Profile from '@/pages/Profile/Profile';
-import AdminPanel from '@/pages/AdminPanel/AdminPanel';
 import NotFound from '@/pages/NotFound';
 
 export default function AppRoutes() {
@@ -49,7 +48,6 @@ export default function AppRoutes() {
       <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
       <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-      <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
 
       <Route path="*" element={<NotFound />} />
