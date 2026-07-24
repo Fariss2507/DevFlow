@@ -1,0 +1,9 @@
+# Next.js & Node.js ignores
+node_modules
+.next
+dist
+*.log
+
+# Environment variables
+.env
+.env*.local

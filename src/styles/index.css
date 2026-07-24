@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@import './variables.css';
+@import './global.css';
+
+@variant dark (&:where(.dark, .dark *));

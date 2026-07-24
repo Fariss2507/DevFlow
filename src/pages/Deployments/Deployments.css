@@ -1,0 +1,194 @@
+.deployments-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.deployments-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+}
+
+.deployments-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.list-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.dep-card {
+  padding: 14px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.dep-card:hover {
+  border-color: var(--color-primary);
+}
+
+.dep-card.active {
+  border-color: var(--color-primary);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.dep-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dep-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-text);
+}
+
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-badge.success {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.dep-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.env-tag {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.commit-msg {
+  font-size: 0.8rem;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deployment-details {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sub-text {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.terminal-card {
+  background: #0d1117;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.terminal-header {
+  background: #161b22;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8b949e;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.terminal-logs {
+  padding: 16px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  color: #39d353;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.env-vars-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.env-table {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.env-row {
+  display: flex;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.85rem;
+}
+
+.env-row:last-child {
+  border-bottom: none;
+}
+
+.env-key {
+  width: 200px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.env-val {
+  color: var(--color-text-muted);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .deployments-layout {
+    grid-template-columns: 280px 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .deployments-layout {
+    grid-template-columns: 1fr;
+  }
+  .env-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+

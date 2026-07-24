@@ -1,0 +1,152 @@
+{
+  "users": [
+    {
+      "_id": "mock_user_1",
+      "name": "farissfaheem",
+      "email": "farissfaheem1907@gmail.com",
+      "password": "$2a$10$hashedpassworddummyvalue",
+      "createdAt": "2026-07-22T00:00:00.000Z",
+      "updatedAt": "2026-07-22T00:00:00.000Z"
+    }
+  ],
+  "projects": [
+    {
+      "_id": "proj_1",
+      "title": "Antigravity IDE Integration",
+      "description": "Building a custom paired developer AI agent assistant workflow.",
+      "category": "AI Development",
+      "status": "In Progress",
+      "client": "Google DeepMind",
+      "createdAt": "2026-07-22T00:00:00.000Z",
+      "updatedAt": "2026-07-22T00:00:00.000Z"
+    },
+    {
+      "_id": "proj_2",
+      "title": "DevFlow SaaS Platform",
+      "description": "Developer metrics tracker and beautiful project management workspace.",
+      "category": "Web Application",
+      "status": "Planning",
+      "client": "Internal",
+      "createdAt": "2026-07-22T00:00:00.000Z",
+      "updatedAt": "2026-07-22T00:00:00.000Z"
+    },
+    {
+      "_id": "proj_3",
+      "title": "Aura Physics Engine",
+      "description": "Smooth, lightweight liquid-flow UI physics animations library.",
+      "category": "Design System",
+      "status": "Completed",
+      "client": "Open Source",
+      "createdAt": "2026-07-21T00:00:00.000Z",
+      "updatedAt": "2026-07-21T00:00:00.000Z"
+    }
+  ],
+  "tasks": [
+    {
+      "_id": "task_1",
+      "title": "Refactor sidebar width collapse glitch",
+      "description": "Sidebar was getting squished to 50px on medium screen viewports.",
+      "priority": "High",
+      "status": "Completed",
+      "dueDate": "2026-07-23",
+      "estimatedTime": "1 hr",
+      "labels": ["css", "layout"],
+      "createdAt": "2026-07-22T00:00:00.000Z"
+    },
+    {
+      "_id": "task_2",
+      "title": "Aesthetic Aurora background tweaks",
+      "description": "Update floating keyframes to make the amber spotlights look organic.",
+      "priority": "Medium",
+      "status": "In Progress",
+      "dueDate": "2026-07-25",
+      "estimatedTime": "3 hrs",
+      "labels": ["animation", "design"],
+      "createdAt": "2026-07-22T00:00:00.000Z"
+    },
+    {
+      "_id": "task_3",
+      "title": "Implement global CSS card tokens",
+      "description": "Rewrite Tailwind inline card borders to use variables.css tokens.",
+      "priority": "High",
+      "status": "Completed",
+      "dueDate": "2026-07-24",
+      "estimatedTime": "2 hrs",
+      "labels": ["tokens", "refactoring"],
+      "createdAt": "2026-07-22T00:00:00.000Z"
+    }
+  ],
+  "bugs": [
+    {
+      "_id": "bug_1",
+      "title": "Sidebar squishing on split screens",
+      "description": "Flexbox container squashed the sidebar width from 230px to 50px.",
+      "severity": "High",
+      "status": "Fixed",
+      "steps": "1. Open app\n2. Resize window to 850px\n3. Observe links text disappear",
+      "createdAt": "2026-07-22T00:00:00.000Z"
+    },
+    {
+      "_id": "bug_2",
+      "title": "Dashboard empty state on DB timeout",
+      "description": "Dashboard displayed empty metrics panels when Atlas connection timed out.",
+      "severity": "Medium",
+      "status": "In Progress",
+      "steps": "1. Stop network connectivity\n2. Navigate to dashboard\n3. Wait 10s for buffering error",
+      "createdAt": "2026-07-22T00:00:00.000Z"
+    }
+  ],
+  "notes": [
+    {
+      "_id": "note_1",
+      "title": "Pitch Presentation Strategy",
+      "category": "Meeting Notes",
+      "content": "Focus points for tomorrow:\n- Revert Tailwind: emphasize standard clean CSS performance.\n- Gold-Amber custom visual branding.\n- Global fluid background blobs.\n- Fully working local fallback database.",
+      "date": "2026-07-23",
+      "createdAt": "2026-07-23T00:00:00.000Z"
+    },
+    {
+      "_id": "note_2",
+      "title": "Color Token Palette Guidelines",
+      "category": "Documentation",
+      "content": "Theme tokens mapped to CSS variables:\n- Primary: `#E5A93B` (Warm Gold)\n- Secondary: `#C56C39` (Bronze)\n- Surface: `rgba(20,20,24,0.72)` (Sleek Glassmorphic panels)",
+      "date": "2026-07-22",
+      "createdAt": "2026-07-22T00:00:00.000Z"
+    }
+  ],
+  "snippets": [
+    {
+      "_id": "snip_1",
+      "title": "Aurora floating liquid keyframes",
+      "language": "CSS",
+      "description": "Creates organic smooth moving ambient spotlights.",
+      "code": "@keyframes float {\n  0% { transform: translate(0, 0) scale(1) rotate(0deg); }\n  50% { transform: translate(80px, -50px) scale(1.15) rotate(180deg); }\n  100% { transform: translate(0, 0) scale(1) rotate(360deg); }\n}",
+      "tags": ["css", "animation", "aurora"],
+      "favorite": true,
+      "createdAt": "2026-07-22T00:00:00.000Z"
+    }
+  ],
+  "repos": [],
+  "timelogs": [
+    {
+      "_id": "log_1",
+      "duration": 14400,
+      "date": "2026-07-23",
+      "createdAt": "2026-07-23T00:00:00.000Z"
+    },
+    {
+      "_id": "log_2",
+      "duration": 21600,
+      "date": "2026-07-22",
+      "createdAt": "2026-07-22T00:00:00.000Z"
+    },
+    {
+      "_id": "log_3",
+      "duration": 18000,
+      "date": "2026-07-21",
+      "createdAt": "2026-07-21T00:00:00.000Z"
+    }
+  ],
+  "events": [],
+  "notifications": []
+}

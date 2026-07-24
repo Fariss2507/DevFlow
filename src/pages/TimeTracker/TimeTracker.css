@@ -1,0 +1,214 @@
+/* Time Tracker Premium Styling */
+.time-tracker-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 8px 0;
+}
+
+.timer-box-premium {
+  position: relative;
+  background: var(--card-bg-gradient);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 32px 24px;
+  box-shadow: var(--shadow-premium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.timer-box-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+  background: radial-gradient(circle at 50% 10%, rgba(5, 150, 105, 0.06) 0%, transparent 60%);
+}
+
+.timer-box-premium:hover::before {
+  opacity: 1;
+}
+
+.timer-display-premium {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--color-text);
+  font-family: monospace;
+  margin: 16px 0 24px 0;
+  letter-spacing: 1px;
+  z-index: 1;
+  text-shadow: 0 0 10px rgba(5, 150, 105, 0.15);
+}
+
+[data-theme='dark'] .timer-display-premium {
+  text-shadow: 0 0 15px rgba(52, 211, 153, 0.25);
+}
+
+.timer-controls {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  z-index: 1;
+}
+
+.timer-controls button {
+  flex: 1;
+}
+
+.btn-stop {
+  background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25) !important;
+}
+
+.btn-stop:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35) !important;
+}
+
+.log-panel-premium {
+  position: relative;
+  background: var(--card-bg-gradient);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-premium);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.log-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.log-panel-header h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.today-total-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: rgba(5, 150, 105, 0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.log-list-premium {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.log-item-premium {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+[data-theme='dark'] .log-item-premium {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.log-item-premium:hover {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.55);
+  border-color: var(--color-accent);
+}
+
+[data-theme='dark'] .log-item-premium:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.log-info-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.log-task-name {
+  font-size: 0.92rem;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.log-date-label {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-family: monospace;
+}
+
+.log-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.log-duration-val {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  font-weight: 800;
+  font-family: monospace;
+}
+
+.log-delete-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.log-delete-btn:hover {
+  color: var(--color-bugs);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+@media (max-width: 900px) {
+  .time-tracker-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .log-item-premium {
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+
+  .log-meta-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 8px;
+    border-top: 1px dashed var(--color-border);
+    padding-top: 8px;
+  }
+}

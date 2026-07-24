@@ -1,0 +1,61 @@
+:root {
+  /* Vibrant Premium Emerald Palette for Light Theme */
+  --color-primary: #047857; /* Emerald 700 */
+  --color-primary-dark: #064e3b; /* Emerald 900 */
+  --color-accent: #059669; /* Emerald 600 */
+  --color-accent-glow: rgba(5, 150, 105, 0.2);
+  
+  --color-bg-light: #ffffff; 
+  --color-bg: #f1f5f9; /* Rich cool slate background (Slate 100) */
+  
+  /* Solid White Base for high pop contrast */
+  --color-surface: #ffffff;
+  --glass-border: rgba(15, 23, 42, 0.06);
+  
+  /* High contrast black text for light theme */
+  --color-text: #09090b; /* Zinc 950 (High-contrast black) */
+  --color-text-muted: #27272a; /* Zinc 800 (Very readable dark grey) */
+  --color-border: rgba(15, 23, 42, 0.08);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 10px 20px -5px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+  --shadow-glow: 0 0 15px rgba(5, 150, 105, 0.25);
+
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 20px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-full: 9999px;
+
+  --font-family: 'Inter', 'Outfit', system-ui, -apple-system, sans-serif;
+}
+
+[data-theme='dark'] {
+  --color-primary: #10B981; /* Emerald 500 */
+  --color-primary-dark: #D1FAE5; /* Emerald 100 */
+  --color-accent: #34D399; /* Emerald 400 */
+  --color-accent-glow: rgba(52, 211, 153, 0.5);
+  
+  --color-bg-light: #022C22; /* Emerald 950 */
+  --color-bg: #09090B; /* Deep dark bg */
+  
+  /* Sleek Glassmorphic Dark */
+  --color-surface: rgba(255, 255, 255, 0.04); 
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --color-text: #F8FAFC; 
+  --color-text-muted: #94A3B8; 
+  --color-border: rgba(255, 255, 255, 0.08);
+
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.4);
+}

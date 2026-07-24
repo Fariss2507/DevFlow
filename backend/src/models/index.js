@@ -1,0 +1,18 @@
+module.exports = {
+  User: require('./User'),
+  Project: require('./Project'),
+  Task: require('./Task'),
+  Bug: require('./Bug'),
+  Note: require('./Note'),
+  Snippet: require('./Snippet'),
+  Repo: require('./Repo'),
+  TimeLog: require('./TimeLog'),
+  Event: require('./Event'),
+  Notification: require('./Notification'),
+  AiHistory: require('./AiHistory'),
+  File: require('./File'),
+  Doc: require('./Doc'),
+  Activity: require('./Activity'),
+  Deployment: require('./Deployment'),
+  Achievement: require('./Achievement'),
+};

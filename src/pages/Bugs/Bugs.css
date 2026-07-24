@@ -1,0 +1,206 @@
+/* Bugs Tracker Premium Styles */
+.bugs-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  padding: 8px 0;
+}
+
+.bug-card-premium {
+  position: relative;
+  background: var(--card-bg-gradient);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-premium);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  text-align: left;
+}
+
+.bug-card-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+  background: radial-gradient(circle at 10% 10%, var(--glow-bugs) 0%, transparent 60%);
+}
+
+.bug-card-premium:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.12);
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+.bug-card-premium:hover::before {
+  opacity: 1;
+}
+
+.bug-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  z-index: 1;
+}
+
+.bug-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.bug-severity-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.severity-low { background: #64748b; }
+.severity-medium { background: #d97706; }
+.severity-high { background: #dc2626; }
+.severity-critical { background: #7f1d1d; }
+
+.bug-status-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.bug-status-open {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--color-bugs);
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+.bug-status-progress {
+  background: rgba(217, 119, 6, 0.1);
+  color: var(--color-pending);
+  border-color: rgba(217, 119, 6, 0.2);
+}
+
+.bug-status-fixed {
+  background: rgba(5, 150, 105, 0.1);
+  color: var(--color-primary);
+  border-color: rgba(5, 150, 105, 0.2);
+}
+
+.bug-status-closed {
+  background: rgba(100, 116, 139, 0.1);
+  color: #64748b;
+  border-color: rgba(100, 116, 139, 0.2);
+}
+
+.bug-card-body {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+[data-theme='dark'] .bug-card-body {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.bug-card-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.bug-card-desc {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.bug-steps-box {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-family: monospace;
+  font-size: 0.78rem;
+}
+
+[data-theme='dark'] .bug-steps-box {
+  background: rgba(15, 15, 20, 0.4);
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+.bug-steps-title {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.bug-steps-pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--color-text-muted);
+}
+
+.bug-card-screenshot {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  max-height: 150px;
+  object-cover: cover;
+}
+
+.bug-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  padding-top: 12px;
+  z-index: 1;
+}
+
+.bug-dev-info {
+  font-size: 0.78rem;
+  font-family: monospace;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bug-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .bugs-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
