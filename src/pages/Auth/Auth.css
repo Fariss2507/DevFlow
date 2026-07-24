@@ -212,6 +212,41 @@
   color: var(--color-primary);
 }
 
+.btn-google-primary {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1e293b;
+  font-size: .95rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  margin-bottom: 18px;
+}
+
+[data-theme='dark'] .btn-google-primary {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.btn-google-primary:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='dark'] .btn-google-primary:hover {
+  background: rgba(40, 53, 76, 0.95);
+}
+
 .auth-btn {
   width: 100%;
   padding: 13px;
