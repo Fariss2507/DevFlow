@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { KeyRound, Mail } from 'lucide-react';
 import { PerspectiveGrid } from '@/components/features';
-
 import './Auth.css';
-
-const fieldVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0 },
-};
 
 export default function ResetPassword() {
   const [email, setEmail] = useState('');
@@ -16,9 +11,7 @@ export default function ResetPassword() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!email) return;
-
     setSubmitted(true);
   };
 
@@ -26,44 +19,33 @@ export default function ResetPassword() {
     <div className="auth-split">
       <motion.div
         className="auth-left"
-        initial={{ opacity: 0, x: -40 }}
+        initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
         <div className="auth-topbar">
           <div className="auth-logo">DevForge AI</div>
-
           <Link to="/login" className="auth-topbar-link">
             Remembered it? <span>Log in</span>
           </Link>
         </div>
 
         <div className="auth-form-wrap">
-          <motion.form
-            className="auth-form"
-            onSubmit={handleSubmit}
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: 0.08,
-                  delayChildren: 0.15,
-                },
-              },
-            }}
+          <motion.div
+            className="auth-card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
           >
-            <motion.h1 variants={fieldVariants}>
-              Reset Password
-            </motion.h1>
+            {/* Top Glass Badge Icon */}
+            <div className="auth-header-icon">
+              <KeyRound size={24} />
+            </div>
 
-            <motion.p
-              className="auth-subtitle"
-              variants={fieldVariants}
-            >
-              Enter your email and we'll send you reset instructions.
-            </motion.p>
+            <h1>Reset Password</h1>
+            <p className="auth-subtitle">
+              Enter your email address below and we'll send you password recovery instructions.
+            </p>
 
             {submitted ? (
               <motion.div
@@ -71,34 +53,28 @@ export default function ResetPassword() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
               >
-                If an account exists for <b>{email}</b>, a reset link has
-                been sent.
+                If an account exists for <b>{email}</b>, a reset link has been sent to your inbox.
               </motion.div>
             ) : (
-              <>
-                <motion.div variants={fieldVariants}>
-                  <label>Email</label>
+              <form onSubmit={handleSubmit} className="auth-form">
+                <div className="auth-field">
+                  <div className="input-with-icon">
+                    <Mail className="input-icon-left" size={18} />
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                </div>
 
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </motion.div>
-
-                <motion.button
-                  type="submit"
-                  className="auth-btn"
-                  variants={fieldVariants}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
+                <button type="submit" className="auth-btn" style={{ marginTop: '10px' }}>
                   Send Reset Link
-                </motion.button>
-              </>
+                </button>
+              </form>
             )}
-          </motion.form>
+          </motion.div>
         </div>
       </motion.div>
 
