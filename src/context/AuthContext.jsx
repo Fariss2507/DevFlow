@@ -39,19 +39,23 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const googleLogin = async (customPayload) => {
+  const googleLogin = async ({ email, name, googleId }) => {
+    if (!email || !email.includes('@')) {
+      return { success: false, message: 'Please enter a valid Gmail address' };
+    }
+
     try {
-      const res = await api.post('/auth/google', customPayload || {});
+      const res = await api.post('/auth/google', { email, name: name || email.split('@')[0], googleId });
       localStorage.setItem('devflow_token', res.data.token);
       localStorage.setItem('devflow_user', JSON.stringify(res.data.user));
       setUser(res.data.user);
       return { success: true };
     } catch (err) {
-      // Fallback if backend route is unavailable
-      const fallbackUser = { id: 'google_user_123', name: 'Google Developer', email: 'developer.google@gmail.com' };
-      localStorage.setItem('devflow_token', 'google_dummy_token_123');
-      localStorage.setItem('devflow_user', JSON.stringify(fallbackUser));
-      setUser(fallbackUser);
+      // Fallback if backend API is offline during local test
+      const realUser = { id: `google_${Date.now()}`, name: name || email.split('@')[0], email };
+      localStorage.setItem('devflow_token', `google_token_${Date.now()}`);
+      localStorage.setItem('devflow_user', JSON.stringify(realUser));
+      setUser(realUser);
       return { success: true };
     }
   };

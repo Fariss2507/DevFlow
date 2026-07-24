@@ -7,16 +7,19 @@ import User from '@/src/models/User';
 export async function POST(req) {
   try {
     await connectDB();
-    const body = await req.json().catch(() => ({}));
-    const email = body.email || 'developer.google@gmail.com';
-    const name = body.name || 'Google Developer';
+    const body = await req.json();
+    const { email, name, googleId } = body;
+
+    if (!email) {
+      return NextResponse.json({ message: 'Real Gmail address is required' }, { status: 400 });
+    }
 
     let user = await User.findOne({ email });
 
     if (!user) {
-      const hashedPassword = await bcrypt.hash(`google_${Date.now()}_secret`, 10);
+      const hashedPassword = await bcrypt.hash(`google_${Date.now()}_${Math.random()}`, 10);
       user = await User.create({
-        name,
+        name: name || email.split('@')[0],
         email,
         password: hashedPassword,
       });
